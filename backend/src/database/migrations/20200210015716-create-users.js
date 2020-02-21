@@ -20,10 +20,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            provider: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: false,
-                allowNull: false
+            permission_level: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
             },
             created_at: {
                 type: Sequelize.DATE,

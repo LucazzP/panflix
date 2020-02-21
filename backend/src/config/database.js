@@ -4,7 +4,7 @@ module.exports = {
     host: 'localhost',
     username: 'postgres',
     password: 'root',
-    database: 'gobarber',
+    database: 'panflix',
     define: {
         timestamps: true,
         underscored: true,
