@@ -12,7 +12,19 @@ class Database {
     }
 
     init() {
-        this.connection = new Sequelize(databaseConfig);
+        if (process.env.DATABASE_URL) {
+            this.connection = new Sequelize(process.env.DATABASE_URL, {
+                dialect: 'postgres',
+                protocol: 'postgres',
+                port: 5432,
+                logging: true,
+                dialectOptions: {
+                    ssl: true
+                }
+            });
+        } else {
+            this.connection = new Sequelize(databaseConfig);
+        }
 
         models.map(model => model.init(this.connection));
     }
