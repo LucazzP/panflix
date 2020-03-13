@@ -3,7 +3,6 @@ import React from 'react'
 import { BannerWrapper, BannerContainer, MoviesContainer, MovieCard, MoviePreview, MovieDesc } from './styled';
 
 const Banner = () => {
-  const oi = ["oi", "oi"];
   return (
     <BannerWrapper id="banner-wrap">
       <BannerContainer id="banner">

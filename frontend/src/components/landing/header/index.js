@@ -6,6 +6,8 @@ import LogoPanflix from '../../../img/landing/logo-white.png';
 // Styled components
 import { HeaderContainer, LogoContainer, NavContainer } from './styled';
 
+import ModalRegistro from '../modals/registro';
+
 const Header = () => {
   return (
     <HeaderContainer>
@@ -15,10 +17,7 @@ const Header = () => {
         </a>
       </LogoContainer>
       <NavContainer id="nav">
-        <a href="./" id="login">Login</a>
-        <button id="register">
-          Registre-se
-        </button>
+        <ModalRegistro/>
       </NavContainer>
     </HeaderContainer>
   );
