@@ -13,6 +13,33 @@ const DefaultStyle = createGlobalStyle`
     background: 0;
     cursor: pointer;
   }
+  .flex {
+    display: flex;
+    &.row {
+      flex-direction: row;
+    }
+    &.column {
+      flex-direction: column;
+    }
+    &.alignStart {
+      align-items: flex-start;
+    }
+    &.alignCenter {
+      align-items: center;
+    }
+    &.alignEnd {
+      align-items: flex-end;
+    }
+    &.justifyStart {
+      justify-content: flex-start;
+    }
+    &.justifyCenter {
+      justify-content: center;
+    }
+    &.justifyEnd {
+      justify-content: flex-end
+    }
+  }
 `;
 
 export default DefaultStyle;

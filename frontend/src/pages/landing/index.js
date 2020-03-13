@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Header from '../../components/landing/header'
+import Sidebar from '../../components/landing/sidebar'
 import Banner from '../../components/landing/banner'
 
 const Landing = () => {
   return (
     <>
-      <Header/>
-      <Banner/>
+      <Sidebar/>
+      {/* <Banner/> */}
     </>
   )
 }
