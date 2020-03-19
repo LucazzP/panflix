@@ -1,3 +1,5 @@
+// tabela do usuario (criar)
+
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.createTable('users', {
@@ -20,10 +22,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            permission_level: {
+            permissions: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 defaultValue: 0,
+                allowNull: false
             },
             created_at: {
                 type: Sequelize.DATE,

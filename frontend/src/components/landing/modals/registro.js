@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 
 // Styled components
-import { ModalRegistroCSS } from './styled';
+import { ModalCSS, Registro, AfterRegistro } from './styled';
+import "@fortawesome/fontawesome-free/js/all"
 
 export default class ModalRegistro extends React.Component {
   state = {
@@ -20,27 +21,37 @@ export default class ModalRegistro extends React.Component {
     this.setState({
       visible: false,
     });
+    [].map.call(document.querySelectorAll('input'), function(obj) {
+      obj.value = "";
+    });
   };
 
   render() {
     const { visible, confirmLoading } = this.state;
+    
     return (
       <>
-        <ModalRegistroCSS />
-        <a href="./" id="login">Login</a>
-        <button id="register" onClick={this.showModal}>
-          Registre-se
-        </button>
+        <ModalCSS />
+        <button onClick={this.showModal} id="register"><i class="fas fa-user-plus"></i></button>
         <Modal
-          visible={true}
+          visible={visible}
           footer={false}
           confirmLoading={confirmLoading}
           onCancel={this.handleCancel}
           className={"modalRegistro"}          
         >
-          <input type="email" id="email"/>
-          <input type="password" id="senha"/>
-          <button>Login</button>
+          <Registro id="registro" className="flex column alignCenter justifyStart">
+            <p>Insira seus dados e se registre</p>
+            <input type="text" id="nome" placeholder="Nome" />
+            <input type="email" id="email" placeholder="E-mail"/>
+            <input type="password" id="senha" placeholder="Senha"/>
+            <input type="password" id="confirmarSenha" placeholder="Confirme sua senha"/>
+            <button>Registrar</button>
+          </Registro>
+          <AfterRegistro id="afterRegistro" className="flex column alignCenter justifyCenter none">
+            <p>Registro efetuado com sucesso!</p>
+            <p className="info">Agora, para prosseguir com o acesso à plataforma, enviamos um e-mail para você ativar sua conta.</p>
+          </AfterRegistro>
         </Modal>
       </>
     );

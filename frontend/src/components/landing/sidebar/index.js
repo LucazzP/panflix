@@ -2,9 +2,11 @@ import React from 'react'
 
 // Images
 import LogoPanflixRetina from '../../../img/landing/logo-retina.png';
+import ModalLogin from '../modals/login'
+import ModalRegistro from '../modals/registro'
 
 // Styled components
-import { SidebarContainer, LogoContainer } from './styled';
+import { SidebarContainer, LogoContainer, NavContainer } from './styled';
 
 const Sidebar = () => {
   return (
@@ -14,7 +16,9 @@ const Sidebar = () => {
           <img src={LogoPanflixRetina} alt="Logo"/>
         </a>
       </LogoContainer>
-      <NavContainer>
+      <NavContainer className="flex column alignCenter justifyEnd">
+        <ModalLogin/>
+        <ModalRegistro/>
       </NavContainer>
     </SidebarContainer>
   );

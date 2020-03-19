@@ -6,6 +6,7 @@ const DefaultStyle = createGlobalStyle`
     outline: 0;
     border: 0;
     margin: 0px;
+    transition: 0.3s all;
   }
   button {
     border: 0;

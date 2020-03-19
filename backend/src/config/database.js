@@ -1,10 +1,12 @@
-/* eslint-disable prettier/prettier */
+// acesso postgres
+
 module.exports = {
     dialect: 'postgres',
     host: 'localhost',
     username: 'postgres',
-    password: 'root',
+    password: 'docker',
     database: 'panflix',
+    port: 5433,
     define: {
         timestamps: true,
         underscored: true,

@@ -21,6 +21,20 @@ export const LogoContainer = styled.div`
   }
 `;
 
+export const NavContainer = styled.div`
+  margin-bottom: 10vh;
+  flex: 1;
+  &,button {
+    color: #fff;
+    font-size: 22px;
+    padding-top: 10px;
+    &:hover {
+      -webkit-filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.5));      
+      filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.5));  
+    }
+  }
+`;
+
 // export const HeaderContainer = styled.header`
 //   height: 80px;
 //   position: relative;
