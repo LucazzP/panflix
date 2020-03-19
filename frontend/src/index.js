@@ -4,6 +4,8 @@ import Landing from './pages/landing';
 
 import 'normalize.css';
 
+import 'antd/dist/antd.css';
+
 // Default CSS
 import DefaultStyle from './utils/default_style';
 // Fonts
