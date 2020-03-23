@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Images
-import LogoPanflixRetina from '../../../img/landing/logo-retina.png';
+import LogoPanflixRetina from '../../../assets/img/landing/logo-retina.png';
 import ModalLogin from '../modals/login'
 import ModalRegistro from '../modals/registro'
 

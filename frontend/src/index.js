@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Landing from './pages/landing';
+import App from './App';
 
 import 'normalize.css';
 
@@ -15,7 +15,7 @@ ReactDOM.render(
   <>
     <Fonts />
     <DefaultStyle />
-    <Landing />
+    <App />
   </>, 
   document.getElementById('root')
 );

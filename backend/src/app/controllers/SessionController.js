@@ -40,14 +40,15 @@ class SessionController {
         }
 
         // pega o id e nome do usuario
-        const { id, name } = user;
+        const { id, name, permissions } = user;
 
         // faz o retorno das infos do usuario
         return res.json({
             user: {
                 id,
                 name,
-                email
+                email,
+                permissions
             },
             // cria o token da sessao
             token: jwt.sign({ id }, authConfig.secret, {

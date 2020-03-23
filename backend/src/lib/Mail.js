@@ -14,6 +14,7 @@ class Mail {
     }
 
     sendMail(message) {
+        // enviar o e-mail passando as configurações e o parametro
         return this.transporter.sendMail({
             ...mailConfig.default,
             ...message

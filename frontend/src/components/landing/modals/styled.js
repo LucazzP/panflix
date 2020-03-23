@@ -22,26 +22,34 @@ export const ModalCSS = createGlobalStyle`
             text-align: center;
           }
         }
-        input {
-          margin: 0 0 5% 0;
-          background: #eee;
-          border-bottom: 2px solid rgba(255, 20, 30, 1);
-          border-radius: 10px;
-          width: 80%;
-          padding: 5% 10%;
-          color: #111;
-          font-size: 16px;
-        }
-        button {
-          background: rgba(255, 20, 30, 1);
-          border-radius: 30px;
-          color: #fafafa;
-          font-size: 16px;
-          padding: 3% 10%;
-          margin-top: 5%;
-          &:hover {
-            padding: 3% 12%;
-            box-shadow: 0 0 10px rgba(255, 20, 30, 0.5);
+        form {
+          width: 100%;
+          height: 100%;
+          input {
+            margin: 0 0 5% 0;
+            background: #eee;
+            border-bottom: 2px solid rgba(255, 20, 30, 1);
+            border-radius: 10px;
+            width: 80%;
+            padding: 5% 10%;
+            color: #111;
+            font-size: 16px;
+          }
+          span {
+            margin: -2% 0 3%;
+            color: rgba(255, 20, 30, 1);
+          }
+          button {
+            background: rgba(255, 20, 30, 1);
+            border-radius: 30px;
+            color: #fafafa;
+            font-size: 16px;
+            padding: 3% 10%;
+            margin-top: 5%;
+            &:hover {
+              padding: 3% 12%;
+              box-shadow: 0 0 10px rgba(255, 20, 30, 0.5);
+            }
           }
         }
       }
