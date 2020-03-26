@@ -4,7 +4,7 @@ module.exports = {
     dialect: 'postgres',
     host: 'api.emillia.com.br',
     username: 'postgres',
-    password: 'docker',
+    password: 'PanfliX111',
     database: 'panflix',
     port: 5433,
     define: {
