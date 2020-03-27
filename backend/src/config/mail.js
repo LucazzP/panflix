@@ -1,11 +1,11 @@
 // config smtp to Mailtrap
 export default {
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    secure: false,
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-        user: '2cc8d0c4f69128',
-        pass: 'd4f165eb274f72'
+        user: 'panflix.no.reply@gmail.com',
+        pass: 'PanfliX111'
     },
     default: {
         from: 'Contato Panflix <noreply@panflix.com>'

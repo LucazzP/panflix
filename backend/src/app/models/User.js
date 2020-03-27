@@ -11,6 +11,7 @@ class User extends Model {
                 // Senha virtual (não vai pro banco, apenas hash)
                 password: Sequelize.VIRTUAL,
                 password_hash: Sequelize.STRING,
+                confirmed: Sequelize.BOOLEAN,
                 permissions: Sequelize.INTEGER
             },
             {

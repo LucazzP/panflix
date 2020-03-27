@@ -5,7 +5,7 @@ module.exports = {
     host: 'api.emillia.com.br',
     username: 'postgres',
     password: 'PanfliX111',
-    database: 'panflix',
+    database: 'panflixdev',
     port: 5433,
     define: {
         timestamps: true,

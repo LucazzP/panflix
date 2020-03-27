@@ -30,18 +30,13 @@ class UserController {
 
         // caso o usuario ja exista retorna erro
         if (userExists) {
-            return res.status(400).json({ error: 'User already existis' });
+            return res.status(400).json({ error: 'User already exists' });
         }
 
         // cria o usuario via modelo
         const { id, name, email, provider } = await User.create(req.body);
 
-        // enviar email confirmando
-        await Mail.sendMail({
-            to: `${name} <${email}>`,
-            subject: 'Confirmação de cadastro - Panflix',
-            text: 'E-mail confirmado'
-        });
+        await Mail.sendEmailConfirmAccount(email, name, id);
 
         // retorna as informacoes do usuario
         return res.json({

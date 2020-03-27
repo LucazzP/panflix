@@ -20,7 +20,7 @@ class SessionController {
 
         // caso algum campo nao for preenchido da erro
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ error: 'Validation fails' });
+            return res.status(401).json({ error: 'Validation fails' });
         }
 
         // pega o email e senha da requisicao
@@ -31,16 +31,20 @@ class SessionController {
 
         // caso n exista retorna erro
         if (!user) {
-            return res.status(401).json({ error: 'User not found' });
+            return res.status(422).json({ error: 'User not found' });
         }
 
         // verifica a senha do usuario
         if (!(await user.checkPassword(password))) {
-            return res.status(401).json({ error: 'Password does not match' });
+            return res.status(422).json({ error: 'Password does not match' });
         }
 
         // pega o id e nome do usuario
-        const { id, name, permissions } = user;
+        const { id, name, permissions, confirmed } = user;
+
+        if(!confirmed) {
+            return res.status(422).json({ error: 'Please confirm your email login'});
+        }
 
         // faz o retorno das infos do usuario
         return res.json({
