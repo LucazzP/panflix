@@ -5,7 +5,6 @@ class ProductionCompany extends Model {
     static init(sequelize) {
         super.init(
             {
-                id: Sequelize.INTEGER,
                 logo_path: Sequelize.STRING,
                 name: Sequelize.STRING
             },

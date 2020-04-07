@@ -5,7 +5,6 @@ class Movie extends Model {
     static init(sequelize) {
         super.init(
             {
-                id: Sequelize.INTEGER,
                 idTM: Sequelize.INTEGER,
                 backdrop_path: Sequelize.STRING,
                 imdb_id: Sequelize.STRING,

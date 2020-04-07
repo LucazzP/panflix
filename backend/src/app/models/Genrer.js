@@ -5,7 +5,6 @@ class Genrer extends Model {
     static init(sequelize) {
         super.init(
             {
-                id: Sequelize.INTEGER,
                 name: Sequelize.STRING,
             },
             {
