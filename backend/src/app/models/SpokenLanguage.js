@@ -1,12 +1,11 @@
 import Sequelize, { Model } from 'sequelize';
 
-class ProductionCompany extends Model {
+class SpokenLanguage extends Model {
     // Modelo de usuário do postgres
     static init(sequelize) {
         super.init(
             {
-                logo_path: Sequelize.STRING,
-                name: Sequelize.STRING
+                name: Sequelize.STRING,
             },
             {
                 sequelize
@@ -16,8 +15,8 @@ class ProductionCompany extends Model {
     }
 
     static associate(models){
-        this.belongsToMany(models.Movie, { foreignKey: 'production_company_id', through: 'movie_production_companies', as: 'movies'});
+        this.belongsToMany(models.Movie, { foreignKey: 'spoken_language_id', through: 'movie_spoken_languages', as: 'movies'});
     }
 }
 
-export default ProductionCompany;
+export default SpokenLanguage;

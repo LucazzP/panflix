@@ -2,7 +2,7 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('production_companies', {
+        return queryInterface.createTable('spoken_languages', {
             id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -10,10 +10,6 @@ module.exports = {
                 primaryKey: true
             },
             name: {
-                type: Sequelize.STRING,
-                allowNull: true
-            },
-            logo_path: {
                 type: Sequelize.STRING,
                 allowNull: true
             },
@@ -29,6 +25,6 @@ module.exports = {
     },
 
     down: queryInterface => {
-        return queryInterface.dropTable('production_companies');
+        return queryInterface.dropTable('spoken_languages');
     }
 };

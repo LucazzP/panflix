@@ -13,6 +13,10 @@ class Genrer extends Model {
         );
         return this;
     }
+
+    static associate(models){
+        this.belongsToMany(models.Movie, { foreignKey: 'genrer_id', through: 'movie_genrers', as: 'movies'});
+    }
 }
 
 export default Genrer;

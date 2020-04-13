@@ -9,7 +9,7 @@ module.exports = {
                 autoIncrement: true,
                 primaryKey: true
             },
-            idTM: {
+            id_tmdb: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
             },
@@ -34,7 +34,7 @@ module.exports = {
                 allowNull: true,
             },
             popularity: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.DECIMAL,
                 allowNull: true,
             },
             poster_path: {
@@ -53,6 +53,14 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
+            created_at: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updated_at: {
+                type: Sequelize.DATE,
+                allowNull: false
+            }
         });
     },
 
