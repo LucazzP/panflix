@@ -5,7 +5,7 @@ class Genrer extends Model {
     static init(sequelize) {
         super.init(
             {
-                name: Sequelize.STRING,
+                name: Sequelize.STRING
             },
             {
                 sequelize
@@ -14,8 +14,12 @@ class Genrer extends Model {
         return this;
     }
 
-    static associate(models){
-        this.belongsToMany(models.Movie, { foreignKey: 'genrer_id', through: 'movie_genrers', as: 'movies'});
+    static associate(models) {
+        this.belongsToMany(models.Movie, {
+            foreignKey: 'genrer_id',
+            through: 'movie_genrers',
+            as: 'movies'
+        });
     }
 }
 

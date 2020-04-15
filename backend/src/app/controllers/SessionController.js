@@ -55,7 +55,7 @@ class SessionController {
                 permissions
             },
             // cria o token da sessao
-            token: jwt.sign({ id }, authConfig.secret, {
+            token: jwt.sign({ id, permissions }, authConfig.secret, {
                 expiresIn: authConfig.expiresIn
             })
         });
