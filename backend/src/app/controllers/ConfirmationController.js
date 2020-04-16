@@ -15,7 +15,7 @@ class ConfirmationController {
         } catch (e) {
             res.send(`Error: ${e}`);
         }
-        return res.json({ message: 'OK' });
+        return  res.redirect('/');
     }
 }
 

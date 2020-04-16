@@ -5,14 +5,21 @@ class Genrer extends Model {
     static init(sequelize) {
         super.init(
             {
-                id: Sequelize.INTEGER,
-                name: Sequelize.STRING,
+                name: Sequelize.STRING
             },
             {
                 sequelize
             }
         );
         return this;
+    }
+
+    static associate(models) {
+        this.belongsToMany(models.Movie, {
+            foreignKey: 'genrer_id',
+            through: 'movie_genrers',
+            as: 'movies'
+        });
     }
 }
 
