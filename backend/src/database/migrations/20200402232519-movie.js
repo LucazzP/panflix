@@ -13,6 +13,14 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: true,
             },
+            video_key: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            video_site: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
             backdrop_path: {
                 type: Sequelize.STRING,
                 allowNull: true,

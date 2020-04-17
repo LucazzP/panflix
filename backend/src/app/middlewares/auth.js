@@ -21,6 +21,11 @@ export default async (req, res, next) => {
         const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
         req.userId = decoded.id;
+        req.permissions = decoded.permissions;
+
+        if(req.method != 'GET' && decoded.permissions != 10) {
+            return res.status(401).json({ error: 'User not authorized' });
+        };
 
         return next();
     } catch (err) {

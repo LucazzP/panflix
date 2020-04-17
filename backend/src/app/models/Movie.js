@@ -7,6 +7,8 @@ class Movie extends Model {
             {
                 id_tmdb: Sequelize.INTEGER,
                 backdrop_path: Sequelize.STRING,
+                video_key: Sequelize.STRING,
+                video_site: Sequelize.STRING,
                 imdb_id: Sequelize.STRING,
                 original_language: Sequelize.STRING,
                 original_title: Sequelize.STRING,

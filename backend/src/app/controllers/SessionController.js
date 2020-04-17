@@ -42,9 +42,14 @@ class SessionController {
         // pega o id e nome do usuario
         const { id, name, permissions, confirmed } = user;
 
-        if(!confirmed) {
-            return res.status(422).json({ error: 'Please confirm your email login'});
+        if (!confirmed) {
+            return res
+                .status(422)
+                .json({ error: 'Please confirm your email login' });
         }
+
+        let today = new Date();
+        today.setHours(today.getHours() + 2);
 
         // faz o retorno das infos do usuario
         return res.json({
@@ -57,7 +62,8 @@ class SessionController {
             // cria o token da sessao
             token: jwt.sign({ id, permissions }, authConfig.secret, {
                 expiresIn: authConfig.expiresIn
-            })
+            }),
+            expiresIn: today.toUTCString(),
         });
     }
 }
