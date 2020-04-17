@@ -30,7 +30,7 @@ module.exports = {
                 allowNull: true,
             },
             overview: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(600),
                 allowNull: true,
             },
             popularity: {

@@ -5,6 +5,24 @@ import ProductionCompany from '../models/ProductionCompany';
 import SpokenLanguage from '../models/SpokenLanguage';
 
 class MovieController {
+    async all(req, res) {
+        const gender = await Genrer.findAll({
+            attributes: ['id', 'name'],
+            include: [
+                {
+                    association: 'movies',
+                    attributes: ['id', 'backdrop_path', 'poster_path', 'title', 'tagline'],
+                    order: ['popularity', 'DESC'],
+                    through: {
+                        attributes: []
+                    }
+                }
+            ]
+        });
+
+        return res.json(gender);
+    }
+
     // criar filme
     async store(req, res) {
         // schema do movie
@@ -14,24 +32,34 @@ class MovieController {
             status: Yup.string(),
             backdrop_path: Yup.string(),
             imdb_id: Yup.string(),
-            genres: Yup.array().of(
-                Yup.object().shape({
-                    id: Yup.number(),
-                    name: Yup.string().notRequired()
-                })
-            ),
-            production_companies: Yup.array().of(
-                Yup.object().shape({
-                    id: Yup.number(),
-                    logo_path: Yup.string().notRequired(),
-                    name: Yup.string().notRequired()
-                })
-            ),
-            spoken_languages: Yup.array().of(
-                Yup.object().shape({
-                    name: Yup.string()
-                })
-            ),
+            genres: Yup.array()
+                .of(
+                    Yup.object().shape({
+                        name: Yup.string()
+                            .notRequired()
+                            .nullable()
+                    })
+                )
+                .nullable(),
+            production_companies: Yup.array()
+                .of(
+                    Yup.object().shape({
+                        logo_path: Yup.string()
+                            .notRequired()
+                            .nullable(),
+                        name: Yup.string()
+                            .notRequired()
+                            .nullable()
+                    })
+                )
+                .nullable(),
+            spoken_languages: Yup.array()
+                .of(
+                    Yup.object().shape({
+                        name: Yup.string().nullable()
+                    })
+                )
+                .nullable(),
             original_language: Yup.string(),
             original_title: Yup.string(),
             overview: Yup.string(),
@@ -58,7 +86,6 @@ class MovieController {
         if (movieExists) {
             return res.status(400).json({ error: 'Movie already exists' });
         }
-
 
         // Divide a requisição em variaveis para criar as tables
         let movieJson = req.body;
@@ -99,7 +126,7 @@ class MovieController {
         for (let index = 0; index < production_companies.length; index++) {
             const pcompany = production_companies[index];
             const [pcomp] = await ProductionCompany.findOrCreate({
-                where: { name: pcompany.name }
+                where: { name: pcompany.name, logo_path: pcompany.logo_path }
             });
             await pcomp.addMovie(movie.id);
         }
@@ -108,8 +135,8 @@ class MovieController {
 
         // retorna as informacoes do movie
         return res.json({
-            "message": "Created",
-            "id": movie.id
+            message: 'Created',
+            id: movie.id
         });
     }
 
@@ -117,14 +144,36 @@ class MovieController {
         const { movie_id } = req.params;
 
         const movie = await Movie.findByPk(movie_id, {
-            include: {
-                association: 'production_companies'
-            }
+            include: [
+                {
+                    association: 'production_companies',
+                    attributes: ['id', 'logo_path', 'name'],
+                    through: {
+                        attributes: []
+                    }
+                },
+                {
+                    association: 'spoken_languages',
+                    attributes: ['id', 'name'],
+                    through: {
+                        attributes: []
+                    }
+                },
+                {
+                    association: 'genres',
+                    attributes: ['id', 'name'],
+                    through: {
+                        attributes: []
+                    }
+                }
+            ]
         });
 
-        'production_companies'
-        'spoken_languages'
-        'genres'
+        if (!movie) {
+            return res.status(404).json({ error: 'Movie not found' });
+        }
+
+        return res.json(movie.toJSON());
     }
 }
 

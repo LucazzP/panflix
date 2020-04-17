@@ -20,6 +20,7 @@ routes.use(AuthMiddleware);
 // rota de update de informacoes
 routes.put('/users', UserController.update);
 routes.post('/movies', MovieController.store);
-routes.post('/movies/:movie_id', MovieController.index);
+routes.get('/movies', MovieController.all);
+routes.get('/movies/:movie_id', MovieController.index);
 
 export default routes;
