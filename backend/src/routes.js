@@ -14,14 +14,15 @@ routes.get('/', (req, res) =>  res.json({hello: 'World'}));
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 routes.get('/confirmation/:token', ConfirmationController.update);
+routes.get('/movies', MovieController.all);
 
 routes.use(AuthMiddleware);
 
 // rota de update de informacoes
 routes.put('/users', UserController.update);
+routes.post('/users/buy', UserController.buySubscription);
 
 routes.post('/movies', MovieController.store);
-routes.get('/movies', MovieController.all);
 routes.put('/movies', MovieController.put);
 routes.delete('/movies/:movie_id', MovieController.delete);
 routes.get('/movies/:movie_id', MovieController.index);

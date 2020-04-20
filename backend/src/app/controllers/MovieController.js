@@ -207,6 +207,13 @@ class MovieController {
     }
 
     async index(req, res) {
+
+        const permissions = req.permissions;
+
+        if(permissions < 1){
+            return res.status(401).json({ error: 'User not authorized' });
+        }
+
         const { movie_id } = req.params;
 
         const movie = await Movie.findByPk(movie_id, {

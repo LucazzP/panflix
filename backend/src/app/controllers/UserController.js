@@ -47,6 +47,36 @@ class UserController {
         });
     }
 
+    async buySubscription(req, res) {
+        const schema = Yup.object().shape({
+            id: Yup.number(),
+            permissions: Yup.number()
+        });
+
+        // caso a validacao der erro retornar esse falha
+        if (!(await schema.isValid(req.body))) {
+            return res.status(400).json({ error: 'Validation fails' });
+        }
+
+        if (![1, 2, 3].includes(req.body.permissions)) {
+            return res.status(400).json({ error: 'Invalid Permission' });
+        }
+
+        const user = await User.findByPk(req.body.id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        try {
+            await user.update({ permissions: req.body.permissions });
+        } catch (error) {
+            return res.status(400).json(error);
+        }
+
+        return res.status(200).json({ message: 'OK' });
+    }
+
     // atualiza as informacoes do usuario
     async update(req, res) {
         // schema verificando as informacoes

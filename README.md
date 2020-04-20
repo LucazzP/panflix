@@ -9,3 +9,6 @@
 Restringir o acesso em diversas instâncias simultâneas
 de usuários nos planos básico e médio. Apenas o
 plano premium poderá possuir acesso de instâncias simultâneas.
+
+## Documentação Api:
+https://www.getpostman.com/collections/2c79dc6d1025505c939a
