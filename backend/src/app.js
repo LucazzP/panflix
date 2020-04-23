@@ -22,4 +22,6 @@ class App {
     }
 }
 
-export default new App().server;
+var app = new App();
+
+export default app.server;

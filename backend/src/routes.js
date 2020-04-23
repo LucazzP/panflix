@@ -10,7 +10,9 @@ import AuthMiddleware from './app/middlewares/auth';
 const routes = new Router();
 
 // rotas de registro e login
-routes.get('/', (req, res) =>  res.json({hello: 'World'}));
+routes.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 routes.get('/confirmation/:token', ConfirmationController.update);

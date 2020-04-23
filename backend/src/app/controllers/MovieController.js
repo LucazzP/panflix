@@ -128,7 +128,7 @@ class MovieController {
                 .nullable(),
             original_language: Yup.string(),
             original_title: Yup.string(),
-            overview: Yup.string(),
+            overview: Yup.string().max(600),
             popularity: Yup.number(),
             poster_path: Yup.string(),
             release_date: Yup.date(),
