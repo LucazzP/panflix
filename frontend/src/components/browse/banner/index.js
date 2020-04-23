@@ -30,7 +30,7 @@ const Banner = () => {
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
               <div id="btn">
-                <button>Assista agora</button>
+                <button type="button">Assista agora</button>
               </div>
             </MovieDesc>
           </MovieCard>
@@ -50,7 +50,7 @@ const Banner = () => {
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
               <div id="btn">
-                <button>Assista agora</button>
+                <button type="button">Assista agora</button>
               </div>
             </MovieDesc>
           </MovieCard>
@@ -70,7 +70,7 @@ const Banner = () => {
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
               <div id="btn">
-                <button>Assista agora</button>
+                <button type="button">Assista agora</button>
               </div>
             </MovieDesc>
           </MovieCard>

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrapper } from './styles';
+import { Wrapper, Container } from './styles';
 import Sidebar from '~/components/default/sidebar';
 
 export default function DefaultLayout({ children }) {
   return (
-    <Wrapper>
+    <Wrapper className="flex row alignStart justifyEnd">
       <Sidebar />
-      {children}
+      <Container>{children}</Container>
     </Wrapper>
   );
 }

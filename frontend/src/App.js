@@ -1,9 +1,8 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-import 'normalize.css';
-import 'typeface-montserrat';
-import 'antd/dist/antd.css';
 
 import './config/ReactotronConfig';
 
@@ -12,15 +11,18 @@ import history from './services/history';
 
 import GlobalStyles from './styles/global';
 
-import store from './store';
+import { store, persistor } from './store';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <Routes />
-        <GlobalStyles />
-      </Router>
+      <PersistGate persistor={persistor}>
+        <Router history={history}>
+          <Routes />
+          <GlobalStyles />
+          <ToastContainer autoClose={3000} />
+        </Router>
+      </PersistGate>
     </Provider>
   );
 };

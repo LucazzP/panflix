@@ -1,5 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
+import 'normalize.css';
+import 'typeface-montserrat';
+import 'antd/dist/antd.css';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const CSS = createGlobalStyle`
   * {
     box-sizing: border-box;

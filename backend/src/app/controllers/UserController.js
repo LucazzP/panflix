@@ -34,7 +34,7 @@ class UserController {
         }
 
         // cria o usuario via modelo
-        const { id, name, email, provider } = await User.create(req.body);
+        const { id, name, email, permissions } = await User.create(req.body);
 
         await Mail.sendEmailConfirmAccount(email, name, id);
 
@@ -43,7 +43,7 @@ class UserController {
             id,
             name,
             email,
-            provider
+            permissions
         });
     }
 

@@ -20,7 +20,9 @@ class Database {
         this.connection = new Sequelize(databaseConfig);
 
         models.map(model => model.init(this.connection));
-        modelsAssociations.map(model => model.associate(this.connection.models));
+        modelsAssociations.map(model =>
+            model.associate(this.connection.models)
+        );
     }
 }
 
