@@ -6,11 +6,12 @@ import SpokenLanguage from '../models/SpokenLanguage';
 
 class MovieController {
     async all(req, res) {
-        const gender = await Genrer.findAll({
+        const genders = await Genrer.findAll({
             attributes: ['id', 'name'],
             include: [
                 {
                     association: 'movies',
+                    required: true,
                     attributes: [
                         'id',
                         'backdrop_path',
@@ -26,7 +27,11 @@ class MovieController {
             ]
         });
 
-        return res.json(gender);
+        // for (let index = 0; index < genders.length; index++) {
+        //     genders[index].movies = await genders[index].getMovies({ limit: 10 });
+        // }
+
+        return res.json(genders);
     }
 
     async delete(req, res) {
@@ -207,10 +212,9 @@ class MovieController {
     }
 
     async index(req, res) {
-
         const permissions = req.permissions;
 
-        if(permissions < 1){
+        if (permissions < 1) {
             return res.status(401).json({ error: 'User not authorized' });
         }
 

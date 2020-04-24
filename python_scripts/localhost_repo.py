@@ -12,4 +12,7 @@ class LocalhostRepo:
     def post(self, url, data):
         return requests.post(self.baseUrl + url, headers=self.authHeader, json=data)
 
+    def put(self, url, data):
+        return requests.put(self.baseUrl + url, headers=self.authHeader, json=data)
+
     pass

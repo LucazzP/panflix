@@ -29,6 +29,9 @@ class TMDBRepo:
     def getMovieDetails(self, id):
         return self.get('/movie/' + id, {'language': 'pt-BR'})
 
+    def get_video_movie(self, id):
+        return self.get('/movie/' + str(id) + '/videos', {'language': 'pt-BR'})
+
     def getMovieDetailsFromArchive(self, archive):
         ids_file = open(archive, "r")
         ids = ids_file.read().splitlines()
@@ -55,5 +58,22 @@ class TMDBRepo:
             dic = ast.literal_eval(movie)
             r = local_repo.post('/movies', dic)
             print(r.status_code)
+
+    def get_movie_videos_from_archive(self):
+        movies_file = open("movies_details_parsed.txt", "r")
+        movies = movies_file.read().splitlines()
+        movies_file.close()
+
+        for movie in movies:
+            try:
+                movies_videos_file = open("movies_videos.txt", "a+")
+                dic = ast.literal_eval(movie)
+                r = self.get_video_movie(dic['id'])
+                print(r.status_code)
+                movies_videos_file.write(str(r.json()['results'][0]) + '\n')
+            except:
+                print("Erro no parse JSON")
+            movies_file.close()
+            print(dic['id'])
 
     pass

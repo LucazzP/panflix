@@ -5,4 +5,4 @@ localRepo = LocalhostRepo()
 tmDbRepo = TMDBRepo()
 
 # tmDbRepo.getMovieDetailsFromArchive("ids_movies_filtered.txt")
-tmDbRepo.readAndPostLocallyMovieDetails()
+tmDbRepo.get_movie_videos_from_archive()

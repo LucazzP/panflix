@@ -1,4 +1,4 @@
 import app from './app';
 
 // configuracao do servidor
-app.listen(3030);
+app.listen(3333);
