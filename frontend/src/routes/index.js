@@ -4,6 +4,7 @@ import Route from './Route';
 
 import Main from '../pages/main';
 import Browse from '../pages/browse';
+import Movie from '../pages/movie';
 import Login from '../pages/login';
 import Register from '../pages/register';
 // import Admin from '../pages/admin';
@@ -16,6 +17,7 @@ const Routes = () => {
       <Route path="/register" exact component={Register} />
 
       <Route path="/browse" exact component={Browse} isPrivate />
+      <Route path="/movie/:id" exact component={Movie} isPrivate />
 
       {/* <Route path="/admin" exact component={Admin} isAdmin /> */}
     </Switch>

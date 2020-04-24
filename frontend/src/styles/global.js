@@ -71,6 +71,9 @@ const CSS = createGlobalStyle`
     &.justifyEnd {
       justify-content: flex-end
     }
+    &.justifySpaceBtn {
+      justify-content: space-between;
+    }
   }
 `;
 

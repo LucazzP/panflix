@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import api from '~/services/api';
-import imageApi from '~/services/imageTheMovieDB';
+import history from '~/services/history';
 
 import { MovieContainer, CategoryContainer, Movies, Movie } from './styled';
 
@@ -23,21 +24,39 @@ const Browse = () => {
     loadMovies();
   }, []);
 
-  for (let i = 0; i <= categories.length; i++) {
-    for (let h = 0; h <= 1; h++) {}
+  function goToMovie(id) {
+    history.push(`/movie/${id}`);
   }
 
   return (
     <MovieContainer className="flex column alignStart justifyTop">
-      <CategoryContainer className="flex column alignStart justifyCenter">
-        <h2>Categoria</h2>
-        <Movies>
-          <Movie className="flex column alignCenter justifyCenter">
-            {/* <img src={movies[0].image} alt={movies[0].original_title} />
-            <h3>{movies[0].original_title}</h3> */}
-          </Movie>
-        </Movies>
-      </CategoryContainer>
+      {categories.map(category => (
+        <CategoryContainer
+          key={category.id}
+          className="flex column alignStart justifyCenter"
+        >
+          <h2>{`${category.name} >`}</h2>
+          <Movies className="flex row alignCenter justifyStart">
+            {category.movies.slice(0, 8).map(movie => {
+              const poster = getMovieImage(200, movie.poster_path);
+              return (
+                <Movie
+                  key={movie.id}
+                  onClick={() => goToMovie(movie.id)}
+                  className="flex column alignCenter justifyCenter"
+                >
+                  <div className="image flex column alignCenter justifyCenter">
+                    <img src={poster} alt={movie.title} />
+                  </div>
+                  <div className="title flex column alignCenter justifyTop">
+                    <h3>{movie.title}</h3>
+                  </div>
+                </Movie>
+              );
+            })}
+          </Movies>
+        </CategoryContainer>
+      ))}
     </MovieContainer>
   );
 };
