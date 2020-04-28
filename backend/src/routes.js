@@ -3,7 +3,7 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import ConfirmationController from './app/controllers/ConfirmationController';
-import MovieController from './app/controllers/MovieController'
+import MovieController from './app/controllers/Movie/MovieController'
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -27,6 +27,8 @@ routes.post('/users/buy', UserController.buySubscription);
 routes.post('/movies', MovieController.store);
 routes.put('/movies', MovieController.put);
 routes.delete('/movies/:movie_id', MovieController.delete);
+routes.get('/movies/orderByCreatedDate', MovieController.orderByCreatedDate);
 routes.get('/movies/:movie_id', MovieController.index);
+
 
 export default routes;

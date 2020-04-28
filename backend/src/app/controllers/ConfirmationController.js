@@ -15,7 +15,7 @@ class ConfirmationController {
         } catch (e) {
             res.send(`Error: ${e}`);
         }
-        return  res.redirect('/');
+        return  res.redirect('http://localhost:8000');
     }
 }
 
