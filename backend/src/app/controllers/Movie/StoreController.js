@@ -3,6 +3,7 @@ import Movie from '../../models/Movie';
 import Genrer from '../../models/Genrer';
 import ProductionCompany from '../../models/ProductionCompany';
 import SpokenLanguage from '../../models/SpokenLanguage';
+import User from '../../models/User';
 
 class MovieStoreController {
     async store(req, res) {
@@ -119,6 +120,43 @@ class MovieStoreController {
             message: 'Created',
             id: movie.id
         });
+    }
+
+    async favorite(req, res) {
+        const userId = req.userId;
+        const movieId = req.params.movie_id;
+        var movie;
+
+        const user = await User.findByPk(userId);
+
+        // try {
+
+        // } catch (error) {
+        //     console.log(error);
+        // } finally {
+        //     if (!user) {
+        //         return res.status(404).json({ error: 'User not found' });
+        //     }
+        // }
+
+        try {
+            movie = await Movie.findByPk(movieId);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            if (!movie) {
+                return res.status(404).json({ error: 'Movie not found' });
+            }
+        }
+
+        try {
+            // await movie.addUser(userId);
+            await user.addMovie(movieId);
+        } catch (error) {
+            return res.status(400).json(error);
+        }
+
+        return res.json({ message: `Movie ${movieId} favorited successfully` });
     }
 }
 

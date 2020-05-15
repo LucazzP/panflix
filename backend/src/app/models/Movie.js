@@ -30,6 +30,7 @@ class Movie extends Model {
         this.belongsToMany(models.ProductionCompany, { foreignKey: 'movie_id', through: 'movie_production_companies', as: 'production_companies'});
         this.belongsToMany(models.SpokenLanguage, { foreignKey: 'movie_id', through: 'movie_spoken_languages', as: 'spoken_languages'});
         this.belongsToMany(models.Genrer, { foreignKey: 'movie_id', through: 'movie_genrers', as: 'genres'});
+        this.belongsToMany(models.User, { foreignKey: 'movie_id', through: 'movie_favorite_user', as: 'usersFavorited'});
     }
 }
 

@@ -9,7 +9,7 @@ import SpokenLanguage from '../app/models/SpokenLanguage';
 import databaseConfig from '../config/database';
 
 const models = [User, Movie, ProductionCompany, Genrer, SpokenLanguage];
-const modelsAssociations = [Movie, ProductionCompany, Genrer, SpokenLanguage];
+const modelsAssociations = [User, Movie, ProductionCompany, Genrer, SpokenLanguage];
 
 class Database {
     constructor() {

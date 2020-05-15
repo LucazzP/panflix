@@ -29,6 +29,10 @@ class User extends Model {
         return this;
     }
 
+    static associate(models){
+        this.belongsToMany(models.Movie, { foreignKey: 'user_id', through: 'movie_favorite_user', as: 'favoriteMovies'});
+    }
+
     // Verificação de senha do hash
     checkPassword(password) {
         return bcrypt.compare(password, this.password_hash);

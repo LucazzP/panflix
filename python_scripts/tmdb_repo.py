@@ -49,7 +49,7 @@ class TMDBRepo:
             print(_id)
 
     def readAndPostLocallyMovieDetails(self):
-        movies_file = open("movies_details_parsed.txt", "r")
+        movies_file = open("movies_details_parsed.txt", "r", encoding="ISO-8859-1")
         movies = movies_file.read().splitlines()
         movies_file.close()
         local_repo = LocalhostRepo()

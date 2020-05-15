@@ -1,5 +1,6 @@
 import Genrer from '../../models/Genrer';
 import Movie from '../../models/Movie';
+import User from '../../models/User';
 
 class MovieGetController {
     async index(req, res) {
@@ -76,7 +77,10 @@ class MovieGetController {
     async orderByCreatedDate(req, res) {
         try {
             const movies = await Movie.findAll({
-                order: [['release_date', 'DESC'], ['createdAt', 'DESC']],
+                order: [
+                    ['release_date', 'DESC'],
+                    ['createdAt', 'DESC']
+                ],
                 attributes: [
                     'id',
                     'backdrop_path',
@@ -90,6 +94,41 @@ class MovieGetController {
             });
 
             return res.json(movies);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    async favorites(req, res) {
+        try {
+            const userId = req.userId;
+
+            const user = await User.findByPk(userId, {
+                attributes: [],
+                include: [
+                    {
+                        association: 'movies',
+                        required: true,
+                        attributes: [
+                            'id',
+                            'backdrop_path',
+                            'poster_path',
+                            'title',
+                            'tagline'
+                        ],
+                        order: ['popularity', 'DESC'],
+                        through: {
+                            attributes: []
+                        }
+                    }
+                ]
+            });
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            return res.json(user);
         } catch (error) {
             return res.status(500).json(error);
         }

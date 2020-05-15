@@ -28,7 +28,9 @@ routes.post('/movies', MovieController.store);
 routes.put('/movies', MovieController.put);
 routes.delete('/movies/:movie_id', MovieController.delete);
 routes.get('/movies/orderByCreatedDate', MovieController.orderByCreatedDate);
+routes.get('/movies/favorites', MovieController.favorites);
 routes.get('/movies/:movie_id', MovieController.index);
+routes.post('/movies/:movie_id/favorite', MovieController.favorite);
 
 
 export default routes;

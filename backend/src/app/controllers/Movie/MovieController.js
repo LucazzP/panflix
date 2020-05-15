@@ -28,6 +28,14 @@ class MovieController {
     async orderByCreatedDate(req, res) {
         return MovieGetController.orderByCreatedDate(req, res);
     }
+
+    async favorites(req, res) {
+        return MovieGetController.favorites(req, res);
+    }
+
+    async favorite(req, res) {
+        return MovieStoreController.favorite(req, res);
+    }
 }
 
 export default new MovieController();
