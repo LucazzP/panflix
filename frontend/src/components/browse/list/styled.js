@@ -26,18 +26,13 @@ export const Movies = styled.ul`
 `;
 
 export const Movie = styled.li`
-  width: 300px;
-  height: 360px;
+  width: 200px;
+  height: 350px;
   margin: 0 10px;
-  cursor: pointer;
   &:hover {
     .image {
       img {
         box-shadow: -5px 0 5px #ffffff55;
-      }
-    }
-    .title {
-      h3 {
       }
     }
   }
@@ -46,16 +41,28 @@ export const Movie = styled.li`
     height: 83.3%;
     img {
       width: 100%;
+      height: 100%;
       box-shadow: -5px 0 5px #ffffff33;
+      cursor: pointer;
     }
   }
   .title {
     height: 16.7%;
     h3 {
-      margin: 10px 0 0;
+      margin-top: 10px;
       font-weight: 300;
       color: #fff;
       text-align: center;
+    }
+    svg {
+      margin-top: 10px;
+      color: #fff;
+      margin-left: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
 `;

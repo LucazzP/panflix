@@ -2,9 +2,9 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import api from '~/services/api';
-import history from '~/services/history';
 
-import { MovieContainer, CategoryContainer, Movies, Movie } from './styled';
+import { MovieContainer, CategoryContainer, Movies } from './styled';
+import MovieComponent from './movie';
 
 import { store } from '~/store';
 
@@ -13,55 +13,56 @@ const Browse = () => {
 
   const [categories, setCategories] = useState([]);
   const [recent, setRecent] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
-  function getMovieImage(width, imageURL) {
-    const image = `https://image.tmdb.org/t/p/w${width}${imageURL}`;
-    return image;
+  async function loadMovies() {
+    const { data } = await api.get('movies');
+
+    setCategories(data);
+  }
+
+  async function recentMovies() {
+    const { data } = await api.get('movies/orderByCreatedDate');
+
+    setRecent(data);
+  }
+
+  async function loadFavorites() {
+    const { data } = await api.get('movies/favorites');
+
+    setFavorites(data);
   }
 
   useEffect(() => {
-    async function loadMovies() {
-      const { data } = await api.get('movies');
-
-      setCategories(data);
-    }
-
-    async function recentMovies() {
-      const { data } = await api.get('movies/orderByCreatedDate');
-
-      setRecent(data);
-    }
-
+    loadFavorites();
     recentMovies();
-    console.log(recent);
     loadMovies();
   }, []);
 
-  function goToMovie(id) {
-    history.push(`/movie/${id}`);
-  }
+  const ShowFavorites = () => {
+    if (signed && favorites.length > 0) {
+      return (
+        <CategoryContainer className="flex column alignStart justifyCenter">
+          <h2>Favoritos ></h2>
+          <Movies className="flex row alignCenter justifyStart">
+            {favorites.map(movie => {
+              return <MovieComponent movie={movie} />;
+            })}
+          </Movies>
+        </CategoryContainer>
+      );
+    }
+    return false;
+  };
 
   return (
     <MovieContainer className="flex column alignStart justifyTop">
+      <ShowFavorites />
       <CategoryContainer className="flex column alignStart justifyCenter">
         <h2>Adicionados Recentemente ></h2>
         <Movies className="flex row alignCenter justifyStart">
-          {recent.map(movie => {
-            const poster = getMovieImage(200, movie.poster_path);
-            return (
-              <Movie
-                key={movie.id}
-                onClick={() => goToMovie(movie.id)}
-                className="flex column alignCenter justifyCenter"
-              >
-                <div className="image flex column alignCenter justifyCenter">
-                  <img src={poster} alt={movie.title} />
-                </div>
-                <div className="title flex column alignCenter justifyTop">
-                  <h3>{movie.title}</h3>
-                </div>
-              </Movie>
-            );
+          {recent.slice(0, 8).map(movie => {
+            return <MovieComponent movie={movie} />;
           })}
         </Movies>
       </CategoryContainer>
@@ -72,22 +73,8 @@ const Browse = () => {
         >
           <h2>{`${category.name} >`}</h2>
           <Movies className="flex row alignCenter justifyStart">
-            {category.movies.slice(0, 15).map(movie => {
-              const poster = getMovieImage(200, movie.poster_path);
-              return (
-                <Movie
-                  key={movie.id}
-                  onClick={() => goToMovie(movie.id)}
-                  className="flex column alignCenter justifyCenter"
-                >
-                  <div className="image flex column alignCenter justifyCenter">
-                    <img src={poster} alt={movie.title} />
-                  </div>
-                  <div className="title flex column alignCenter justifyTop">
-                    <h3>{movie.title}</h3>
-                  </div>
-                </Movie>
-              );
+            {category.movies.slice(0, 8).map(movie => {
+              return <MovieComponent movie={movie} />;
             })}
           </Movies>
         </CategoryContainer>

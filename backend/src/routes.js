@@ -3,7 +3,7 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import ConfirmationController from './app/controllers/ConfirmationController';
-import MovieController from './app/controllers/Movie/MovieController'
+import MovieController from './app/controllers/Movie/MovieController';
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -11,7 +11,7 @@ const routes = new Router();
 
 // rotas de registro e login
 routes.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(`${__dirname}/index.html`);
 });
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
@@ -31,6 +31,5 @@ routes.get('/movies/orderByCreatedDate', MovieController.orderByCreatedDate);
 routes.get('/movies/favorites', MovieController.favorites);
 routes.get('/movies/:movie_id', MovieController.index);
 routes.post('/movies/:movie_id/favorite', MovieController.favorite);
-
 
 export default routes;
