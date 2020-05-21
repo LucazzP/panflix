@@ -1,6 +1,7 @@
 import Genrer from '../../models/Genrer';
 import Movie from '../../models/Movie';
 import User from '../../models/User';
+import https from 'https';
 
 class MovieGetController {
     async index(req, res) {
@@ -42,7 +43,21 @@ class MovieGetController {
             return res.status(404).json({ error: 'Movie not found' });
         }
 
-        return res.json(movie.toJSON());
+        if (!movie.video_key) {
+            try {
+                https.get(
+                    `https://api.themoviedb.org/3/movie/${movie.id_tmdb}/videos?api_key=607fcf182e5277e9564a6d3980326159&language=pt-BR`,
+                    response => {
+                        response.on('data', function(chunk) {
+                            try {
+                                movie.video_key = JSON.parse(chunk).results[0].key;
+                            } catch (e){}
+                        });
+                    }
+                );
+            } catch (e) {}
+        }
+        return res.json(movie);
     }
 
     async all(req, res) {

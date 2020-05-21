@@ -49,7 +49,8 @@ class MovieStoreController {
             poster_path: Yup.string(),
             release_date: Yup.date(),
             tagline: Yup.string(),
-            title: Yup.string()
+            title: Yup.string(),
+            video_key: Yup.string(),
         });
 
         // caso algum campo nao esteja preenchido ou a senha tenha menos q 6 digitos da erro
@@ -59,14 +60,16 @@ class MovieStoreController {
             return res.status(400).json(error);
         }
 
-        // verifica se o movie ja existe pelo idTM
-        const movieExists = await Movie.findOne({
-            where: { id_tmdb: req.body.id }
-        });
+        if (req.body.id) {
+            // verifica se o movie ja existe pelo idTM
+            const movieExists = await Movie.findOne({
+                where: { id_tmdb: req.body.id }
+            });
 
-        // caso o movie ja exista retorna erro
-        if (movieExists) {
-            return res.status(400).json({ error: 'Movie already exists' });
+            // caso o movie ja exista retorna erro
+            if (movieExists) {
+                return res.status(400).json({ error: 'Movie already exists' });
+            }
         }
 
         // Divide a requisição em variaveis para criar as tables
@@ -157,10 +160,10 @@ class MovieStoreController {
             }
         }
 
-        const ids = user.favoriteMovies.map((movie) => movie.id);
-        const isAfavoritedMovie = ids.some((id) => id == movieId);
+        const ids = user.favoriteMovies.map(movie => movie.id);
+        const isAfavoritedMovie = ids.some(id => id == movieId);
 
-        if(isAfavoritedMovie){
+        if (isAfavoritedMovie) {
             try {
                 await user.removeFavoriteMovies(movieId);
             } catch (error) {
@@ -174,7 +177,11 @@ class MovieStoreController {
             }
         }
 
-        return res.json({ message: `Movie ${movieId} ${(isAfavoritedMovie) ? "unfavorited" : "favorited"} successfully` });
+        return res.json({
+            message: `Movie ${movieId} ${
+                isAfavoritedMovie ? 'unfavorited' : 'favorited'
+            } successfully`
+        });
     }
 }
 
