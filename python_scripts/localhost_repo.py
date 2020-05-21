@@ -2,7 +2,7 @@ import requests
 
 
 class LocalhostRepo:
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGVybWlzc2lvbnMiOjEwLCJpYXQiOjE1OTAwMjYyMDcsImV4cCI6MTU5MDAzMzQwN30.1Ck7YSQys5ddmAn_CkZ9byRZ_lWLkXZDpyN3rCSTcyA'
+    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGVybWlzc2lvbnMiOjEwLCJpYXQiOjE1OTAwODQ4NjMsImV4cCI6MTU5MDA5MjA2M30.-5WnB30sEADsxBTSHv-BVbmkH5oXJWUOOGwqnSZxl0Q'
     authHeader = {"Authorization": "Bearer " + token}
     baseUrl = 'http://localhost:3333'
 
