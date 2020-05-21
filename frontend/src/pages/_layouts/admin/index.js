@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Wrapper, Container, Bg } from './styles';
-import SidebarAuth from '~/components/default/sidebar/logged';
-import Header from '~/components/default/header';
+import SidebarAdmin from '~/components/default/sidebar/admin';
+// import HeaderAdmin from '~/components/default/header/admin';
 
 export default function AuthLayout({ children }) {
   return (
     <Wrapper className="flex row alignStart justifyEnd">
-      <SidebarAuth />
+      <SidebarAdmin />
       <Container>
         <Bg />
         {children}

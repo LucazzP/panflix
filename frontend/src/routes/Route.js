@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 import AuthLayout from '../pages/_layouts/auth';
+import AdminLayout from '../pages/_layouts/admin';
 import DefaultLayout from '../pages/_layouts/default';
 
 import { store } from '~/store';
@@ -15,16 +16,33 @@ const RouteWrapper = ({
   ...rest
 }) => {
   const { signed } = store.getState().auth;
+  const { profile } = store.getState().user;
 
-  if (!signed && isPrivate) {
+  let admin = false;
+
+  if (signed && profile.permissions === 10) {
+    admin = true;
+  }
+
+  if (!signed && !admin && isPrivate && isAdmin) {
     return <Redirect to="/" />;
   }
 
-  if (signed && !isPrivate) {
+  if (signed && !isPrivate && !isAdmin) {
     return <Redirect to="/browse" />;
   }
 
-  const Layout = signed ? AuthLayout : DefaultLayout;
+  if (signed && !admin && isAdmin) {
+    return <Redirect to="/browse" />;
+  }
+
+  let Layout = DefaultLayout;
+
+  if (admin) {
+    Layout = AdminLayout;
+  } else {
+    Layout = signed ? AuthLayout : DefaultLayout;
+  }
 
   return (
     <Route

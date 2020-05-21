@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import LogoPanflixBranco from '~/assets/logo/logo-white.png';
 import { signInRequest } from '~/store/modules/auth/actions';
 
-import { LoginContainer, FormHolder, FormContent } from './styles';
+import { LoginContainer, FormHolder, FormContent } from './styled';
 
 const schema = Yup.object().shape({
   email: Yup.string()

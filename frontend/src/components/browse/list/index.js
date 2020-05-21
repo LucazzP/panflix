@@ -37,7 +37,7 @@ const Browse = () => {
         >
           <h2>{`${category.name} >`}</h2>
           <Movies className="flex row alignCenter justifyStart">
-            {category.movies.slice(0, 8).map(movie => {
+            {category.movies.slice(0, 15).map(movie => {
               const poster = getMovieImage(200, movie.poster_path);
               return (
                 <Movie

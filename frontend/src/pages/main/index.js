@@ -7,7 +7,7 @@ import { BrowsePage } from './styled';
 
 const Browse = () => {
   return (
-    <BrowsePage className="flex column alignStart justifyTop">
+    <BrowsePage className="flex column alignStart justifyStart">
       {/* <Banner /> */}
       <List />
     </BrowsePage>
