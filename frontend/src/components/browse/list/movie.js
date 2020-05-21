@@ -10,8 +10,11 @@ import api from '~/services/api';
 
 import { Movie } from './styled';
 
+import { store } from '~/store';
+
 const MovieComponent = props => {
-  const [starColor, setStarColor] = useState([]);
+  const { signed } = store.getState().auth;
+  // const [starColor, setStarColor] = useState([]);
   const { movie } = props;
 
   function getMovieImage(width, imageURL) {
@@ -24,10 +27,27 @@ const MovieComponent = props => {
   }
 
   async function favoriteItem(id) {
-    const response = await api.post(`movies/${id}/favorite`);
+    const { data } = await api.post(`movies/${id}/favorite`);
 
-    toast.success('Filme favoritado!');
+    if (data.message.includes('unfavorited')) {
+      toast.success('Filme desfavoritado!');
+    } else if (data.message.includes('favorited')) {
+      toast.success('Filme favoritado!');
+    }
   }
+
+  const ShowFavorite = () => {
+    if (signed) {
+      return (
+        <FontAwesomeIcon
+          onClick={() => favoriteItem(movie.id)}
+          // style={{ color: starColor }}
+          icon={faStar}
+        />
+      );
+    }
+    return false;
+  };
 
   const poster = getMovieImage(200, movie.poster_path);
 
@@ -42,11 +62,7 @@ const MovieComponent = props => {
       </div>
       <div className="title flex row alignTop justifyTop">
         <h3>{movie.title}</h3>
-        <FontAwesomeIcon
-          onClick={() => favoriteItem(movie.id)}
-          style={{ color: starColor }}
-          icon={faStar}
-        />
+        <ShowFavorite />
       </div>
     </Movie>
   );
