@@ -107,7 +107,7 @@ class MovieGetController {
                 attributes: [],
                 include: [
                     {
-                        association: 'movies',
+                        association: 'favoriteMovies',
                         required: true,
                         attributes: [
                             'id',
@@ -128,7 +128,7 @@ class MovieGetController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            return res.json(user);
+            return res.json(user.favoriteMovies);
         } catch (error) {
             return res.status(500).json(error);
         }

@@ -125,19 +125,27 @@ class MovieStoreController {
     async favorite(req, res) {
         const userId = req.userId;
         const movieId = req.params.movie_id;
+        var user;
         var movie;
 
-        const user = await User.findByPk(userId);
-
-        // try {
-
-        // } catch (error) {
-        //     console.log(error);
-        // } finally {
-        //     if (!user) {
-        //         return res.status(404).json({ error: 'User not found' });
-        //     }
-        // }
+        try {
+            user = await User.findOne({
+                where: {
+                    id: userId
+                },
+                include: [
+                    {
+                        association: 'favoriteMovies'
+                    }
+                ]
+            });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+        }
 
         try {
             movie = await Movie.findByPk(movieId);
@@ -149,14 +157,24 @@ class MovieStoreController {
             }
         }
 
-        try {
-            // await movie.addUser(userId);
-            await user.addMovie(movieId);
-        } catch (error) {
-            return res.status(400).json(error);
+        const ids = user.favoriteMovies.map((movie) => movie.id);
+        const isAfavoritedMovie = ids.some((id) => id == movieId);
+
+        if(isAfavoritedMovie){
+            try {
+                await user.removeFavoriteMovies(movieId);
+            } catch (error) {
+                return res.status(400).json(error);
+            }
+        } else {
+            try {
+                await user.addFavoriteMovies(movieId);
+            } catch (error) {
+                return res.status(400).json(error);
+            }
         }
 
-        return res.json({ message: `Movie ${movieId} favorited successfully` });
+        return res.json({ message: `Movie ${movieId} ${(isAfavoritedMovie) ? "unfavorited" : "favorited"} successfully` });
     }
 }
 
