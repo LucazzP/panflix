@@ -166,7 +166,8 @@ class MovieGetController {
                         'backdrop_path',
                         'poster_path',
                         'title',
-                        'tagline'
+                        'tagline',
+                        'release_date'
                     ],
                     order: ['popularity', 'DESC'],
                     through: {
@@ -176,47 +177,57 @@ class MovieGetController {
             ]
         };
 
-        if (req.query.gender) {
+        var ano;
+        var anonext;
+        if (req.query.ano) {
+            ano = new Date(req.query.ano);
+            const anoNextNumber = parseInt(req.query.ano) + 1;
+            anonext = new Date(anoNextNumber.toString());
+        }
+        const title = req.query.title;
+        const gender = req.query.gender;
+
+        if (gender) {
             findAll.where = {
                 [Op.or]: [
-                    { name: { [Op.like]: `%${req.query.gender}%` } },
-                    { name: { [Op.like]: `${req.query.gender}%` } },
-                    { name: { [Op.like]: `%${req.query.gender}` } },
-                    { name: { [Op.like]: `${req.query.gender}` } }
+                    { name: { [Op.like]: `%${gender}%` } },
+                    { name: { [Op.like]: `${gender}%` } },
+                    { name: { [Op.like]: `%${gender}` } },
+                    { name: { [Op.like]: `${gender}` } }
                 ]
             };
         }
-        if (req.query.title && !req.query.ano) {
+        if (title && !ano) {
             findAll.include[0].where = {
                 [Op.or]: [
-                    { title: { [Op.like]: `%${req.query.title}%` } },
-                    { title: { [Op.like]: `${req.query.title}%` } },
-                    { title: { [Op.like]: `%${req.query.title}` } },
-                    { title: { [Op.like]: `${req.query.title}` } }
+                    { title: { [Op.like]: `%${title}%` } },
+                    { title: { [Op.like]: `${title}%` } },
+                    { title: { [Op.like]: `%${title}` } },
+                    { title: { [Op.like]: `${title}` } }
                 ]
             };
         }
-        if (req.query.ano && !req.query.title) {
+        if (ano && !title) {
             findAll.include[0].where = {
-                [Op.or]: [
-                    { ano: { [Op.like]: `%${req.query.ano}%` } },
-                    { ano: { [Op.like]: `${req.query.ano}%` } },
-                    { ano: { [Op.like]: `%${req.query.ano}` } },
-                    { ano: { [Op.like]: `${req.query.ano}` } }
+                [Op.and]: [
+                    { release_date: { [Op.gte]: `${ano}` } },
+                    { release_date: { [Op.lte]: `${anonext}` } }
                 ]
             };
         }
-        if (req.query.ano && req.query.title) {
+        if (ano && title) {
             findAll.include[0].where = {
-                [Op.or]: [
-                    { title: { [Op.like]: `%${req.query.title}%` } },
-                    { title: { [Op.like]: `${req.query.title}%` } },
-                    { title: { [Op.like]: `%${req.query.title}` } },
-                    { title: { [Op.like]: `${req.query.title}` } },
-                    { ano: { [Op.like]: `%${req.query.ano}%` } },
-                    { ano: { [Op.like]: `${req.query.ano}%` } },
-                    { ano: { [Op.like]: `%${req.query.ano}` } },
-                    { ano: { [Op.like]: `${req.query.ano}` } }
+                [Op.and]: [
+                    {
+                        [Op.or]: [
+                            { title: { [Op.like]: `%${title}%` } },
+                            { title: { [Op.like]: `${title}%` } },
+                            { title: { [Op.like]: `%${title}` } },
+                            { title: { [Op.like]: `${title}` } }
+                        ]
+                    },
+                    { release_date: { [Op.gte]: `${ano}` } },
+                    { release_date: { [Op.lte]: `${anonext}` } }
                 ]
             };
         }
