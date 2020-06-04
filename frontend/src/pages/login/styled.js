@@ -6,8 +6,8 @@ export const LoginContainer = styled.div`
 
 export const FormHolder = styled.div`
   position: absolute;
-  width: 578px;
-  height: 467px;
+  width: 50%;
+  height: 70%;
   z-index: 0;
   &:after {
     content: '';
@@ -28,12 +28,16 @@ export const FormHolder = styled.div`
       rgba(255, 20, 30, 1) 66%
     );
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 550px;
+  }
 `;
 
 export const FormContent = styled.div`
   position: relative;
-  width: 576px;
-  height: 465px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   background: rgba(0, 0, 0, 1);
   #logoPanflix {
     margin-bottom: 40px;
@@ -41,7 +45,7 @@ export const FormContent = styled.div`
   form {
     width: 100%;
     input {
-      width: 260px;
+      width: 60%;
       height: 50px;
       padding: 0 5%;
       background: rgba(255, 20, 30, 0.1);
@@ -81,6 +85,37 @@ export const FormContent = styled.div`
     color: rgba(255, 20, 30, 1);
     &:hover {
       text-shadow: 0 0 5px rgba(255, 20, 30, 1);
+    }
+  }
+  .afterForm {
+    height: 100%;
+    padding: 20% 5%;
+    h1,
+    h2 {
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 100px;
+    }
+    h2 {
+      font-weight: 300;
+      line-height: 1.4;
+      font-size: 18px;
+      margin: 0 20%;
+    }
+    button {
+      font-weight: 600;
+      font-size: 18px;
+      margin-top: 50px;
+      color: #fff;
+      background: rgba(255, 20, 30, 1);
+      padding: 10px 30px;
+      border-radius: 30px;
+      &:hover {
+        padding: 10px 60px;
+      }
     }
   }
 `;

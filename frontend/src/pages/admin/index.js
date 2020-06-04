@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +7,7 @@ import {
   faTrash,
   faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
@@ -18,6 +20,15 @@ const Admin = () => {
     const { data } = await api.get('movies');
 
     setCategories(data);
+  }
+
+  async function deleteMovie(id) {
+    await api.delete(`movies/${id}`).then(function(response) {
+      const { status } = response;
+      if (status === 200) {
+        toast.success(`Filme de id ${id} excluido com sucesso!`);
+      }
+    });
   }
 
   useEffect(() => {
@@ -57,8 +68,22 @@ const Admin = () => {
                   </div>
                   <div className="action flex row alignCenter justifyStart">
                     <p className="divisor">|</p>
-                    <FontAwesomeIcon className="icone" icon={faPencilAlt} />
-                    <FontAwesomeIcon className="icone" icon={faTrash} />
+                    <FontAwesomeIcon
+                      onClick={function(e) {
+                        e.preventDefault();
+                        history.push(`/admin/editmovie/${movie.id}`);
+                      }}
+                      className="icone edit"
+                      icon={faPencilAlt}
+                    />
+                    <FontAwesomeIcon
+                      onClick={function(e) {
+                        e.preventDefault();
+                        deleteMovie(movie.id);
+                      }}
+                      className="icone trash"
+                      icon={faTrash}
+                    />
                   </div>
                 </Movie>
               );

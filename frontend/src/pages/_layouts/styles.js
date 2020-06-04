@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Bg = styled.div`
-  height: 100%;
+  height: 100vh;
   width: calc(100% - 6rem);
   position: fixed;
   z-index: -1;

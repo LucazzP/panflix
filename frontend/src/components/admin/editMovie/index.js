@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
 import { toast } from 'react-toastify';
 import api from '~/services/api';
+import history from '~/services/history';
 
 import Input from '~/components/unform/Input';
 import Textarea from '~/components/unform/Textarea';
@@ -25,17 +26,30 @@ const schema = Yup.object().shape({
     .max(15, 'A popularidade não pode ter mais de 120 caracteres'),
 });
 
-const FormContent = () => {
+const FormContent = props => {
+  const [info, setInfo] = useState({});
+
   async function handleSubmit(data, { reset }) {
-    api.post('movies', data).then(function(response) {
+    // eslint-disable-next-line no-param-reassign
+    data.id = props.id;
+    api.put('movies', data).then(function(response) {
       if (response.status === 200) {
-        toast.success('Filme cadastrado com sucesso!');
-        reset();
+        toast.success('Filme editado com sucesso!');
+        history.push('/admin');
       }
     });
   }
 
-  useEffect(() => {}, []);
+  async function loadMovie() {
+    await api.get(`movies/${props.id}`).then(function(response) {
+      const { data } = response;
+      setInfo(data);
+    });
+  }
+
+  useEffect(() => {
+    loadMovie();
+  }, []);
 
   return (
     <FormHolder>
@@ -58,6 +72,7 @@ const FormContent = () => {
               id="title"
               placeholder="Digite aqui"
               maxLength="50"
+              defaultValue={info.title}
             />
             <label htmlFor="slogan">- Slogan:</label>
             <Input
@@ -67,6 +82,7 @@ const FormContent = () => {
               id="tagline"
               placeholder="Digite aqui"
               maxLength="60"
+              defaultValue={info.tagline}
             />
             <label htmlFor="descricao">- Descrição:</label>
             <Textarea
@@ -76,6 +92,7 @@ const FormContent = () => {
               id="overview"
               placeholder="Digite aqui"
               maxLength="120"
+              defaultValue={info.overview}
             />
             <label htmlFor="popularidade">- Popularidade:</label>
             <Input
@@ -84,10 +101,11 @@ const FormContent = () => {
               className="text"
               id="popularity"
               placeholder="Digite aqui"
+              defaultValue={info.popularity}
             />
           </FormColumn>
         </div>
-        <button type="submit">Adicionar</button>
+        <button type="submit">Editar</button>
       </Form>
     </FormHolder>
   );

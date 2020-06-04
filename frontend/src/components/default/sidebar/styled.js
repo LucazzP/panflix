@@ -7,19 +7,12 @@ export const SidebarHolder = styled.aside`
   width: calc(6rem+2px);
   width: 6rem;
   height: 100vh;
-  z-index: 0;
-  background: #141e30; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    #333,
-    #000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    #333,
-    #000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  z-index: 1000;
+  background: #141e30;
+  background: -webkit-linear-gradient(to bottom, #333, #000);
+  background: linear-gradient(to bottom, #333, #000);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 `;
 
 export const LogoContainer = styled.div`

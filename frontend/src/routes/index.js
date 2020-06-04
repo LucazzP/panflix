@@ -9,6 +9,7 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import Admin from '../pages/admin';
 import AddMovie from '../pages/admin/addMovie';
+import EditMovie from '../pages/admin/editMovie';
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
 
       <Route path="/admin" exact component={Admin} isAdmin />
       <Route path="/admin/addmovie" exact component={AddMovie} isAdmin />
+      <Route path="/admin/editmovie/:id" exact component={EditMovie} isAdmin />
     </Switch>
   );
 };

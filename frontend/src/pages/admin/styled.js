@@ -34,7 +34,6 @@ export const Action = styled.div`
   background: rgba(255, 20, 30, 1);
   border-radius: 15px;
   box-shadow: 0px 0px 12px 0px rgba(255, 20, 30, 1);
-  cursor: pointer;
   &:hover {
     box-shadow: 0px 0px 20px 0px rgba(255, 20, 30, 1);
   }
@@ -75,5 +74,9 @@ export const Movie = styled.li`
   }
   .action {
     width: 10%;
+  }
+  .trash,
+  .edit {
+    cursor: pointer;
   }
 `;

@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import AuthLayout from '../pages/_layouts/auth';
 import AdminLayout from '../pages/_layouts/admin';
@@ -24,7 +25,8 @@ const RouteWrapper = ({
     admin = true;
   }
 
-  if (!signed && !admin && isPrivate && isAdmin) {
+  if ((!signed && isPrivate) || (!signed && isAdmin)) {
+    toast.error('Você não tem permissão para acessar essa página!');
     return <Redirect to="/" />;
   }
 
@@ -33,6 +35,7 @@ const RouteWrapper = ({
   }
 
   if (signed && !admin && isAdmin) {
+    toast.error('Você não tem permissão para acessar essa página!');
     return <Redirect to="/browse" />;
   }
 

@@ -32,17 +32,42 @@ export const Movie = styled.li`
   &:hover {
     .image {
       img {
-        box-shadow: -5px 0 5px #ffffff55;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
       }
     }
   }
   .image {
+    position: relative;
     min-width: 200px;
     height: 83.3%;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    &:after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: -1;
+      filter: blur(5px);
+    }
+    &,
+    &:after {
+      background: linear-gradient(
+        to bottom,
+        rgba(110, 220, 220, 1) 0%,
+        rgba(43, 31, 174, 1) 33%,
+        rgba(255, 20, 30, 1) 66%
+      );
+    }
     img {
-      width: 100%;
-      height: 100%;
-      box-shadow: -5px 0 5px #ffffff33;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
       cursor: pointer;
     }
   }

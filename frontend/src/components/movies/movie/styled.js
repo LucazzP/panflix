@@ -73,6 +73,9 @@ export const MovieInfo = styled.div`
       width: 50%;
       text-align: justify;
       margin: 30px 0 0 10px;
+      @media (max-width: 768px) {
+        width: 95%;
+      }
     }
   }
 `;

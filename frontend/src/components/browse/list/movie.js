@@ -29,7 +29,6 @@ const MovieComponent = props => {
         <FontAwesomeIcon
           style={{ color: '#fff' }}
           onClick={() => favorite(movie.id)}
-          // style={{ color: starColor }}
           icon={faStar}
         />
       );

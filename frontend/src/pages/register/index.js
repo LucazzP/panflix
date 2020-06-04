@@ -21,9 +21,8 @@ const schema = Yup.object().shape({
 const Login = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = ({ name, email, password, reset }) => {
+  const handleSubmit = ({ name, email, password }) => {
     dispatch(signUpRequest(name, email, password));
-    reset();
   };
 
   return (

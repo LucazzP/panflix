@@ -18,20 +18,8 @@ export function* signIn({ payload }) {
     const { token, user } = response.data;
 
     switch (user.permissions) {
-      case 0: {
-        toast.success('Visitante logado!');
-        break;
-      }
-      case 1: {
-        toast.success('Você possui o plano básico!');
-        break;
-      }
-      case 2: {
-        toast.success('Você possui o plano médio!');
-        break;
-      }
-      case 3: {
-        toast.success('Você possui o plano premium!');
+      case 0 && 1 && 2 && 3: {
+        toast.success('Você está logado!');
         break;
       }
       case 10: {

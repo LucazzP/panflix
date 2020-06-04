@@ -6,8 +6,8 @@ export const LoginContainer = styled.div`
 
 export const FormHolder = styled.div`
   position: absolute;
-  width: 578px;
-  height: 550px;
+  width: 50%;
+  height: 70%;
   z-index: 0;
   &:after {
     content: '';
@@ -28,12 +28,16 @@ export const FormHolder = styled.div`
       rgba(255, 20, 30, 1) 66%
     );
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 550px;
+  }
 `;
 
 export const FormContent = styled.div`
   position: relative;
-  width: 576px;
-  height: 548px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   background: rgba(0, 0, 0, 1);
   #logoPanflix {
     margin-bottom: 40px;
@@ -41,7 +45,7 @@ export const FormContent = styled.div`
   form {
     width: 100%;
     input {
-      width: 260px;
+      width: 60%;
       height: 50px;
       padding: 0 5%;
       background: rgba(255, 20, 30, 0.1);

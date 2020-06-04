@@ -66,7 +66,7 @@ const Browse = () => {
           ref={favoriteContainer}
           className="flex column alignStart justifyCenter"
         >
-          <h2>Favoritos ></h2>
+          <h2>Favoritos</h2>
           <Movies className="flex row alignCenter justifyStart">
             {favorites.map(movie => {
               return (
@@ -90,7 +90,7 @@ const Browse = () => {
     <MovieContainer className="flex column alignStart justifyTop">
       <ShowFavorites />
       <CategoryContainer className="flex column alignStart justifyCenter">
-        <h2>Adicionados Recentemente ></h2>
+        <h2>Adicionados Recentemente</h2>
         <Movies className="flex row alignCenter justifyStart">
           {recent.slice(0, 8).map(movie => {
             return (
@@ -110,7 +110,7 @@ const Browse = () => {
           key={category.id}
           className="flex column alignStart justifyCenter"
         >
-          <h2>{`${category.name} >`}</h2>
+          <h2>{`${category.name}`}</h2>
           <Movies className="flex row alignCenter justifyStart">
             {category.movies.slice(0, 8).map(movie => {
               return (
