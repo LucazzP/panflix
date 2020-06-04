@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AdminContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100%;
   padding: 2%;
   h1 {
@@ -14,7 +14,7 @@ export const AdminContainer = styled.div`
   h2 {
     color: #fff;
     font-size: 24px;
-    margin: 0 0 20px 10px;
+    margin: 10px 0 10px 10px;
   }
   @media (max-width: 768px) {
     & {
@@ -47,5 +47,33 @@ export const Action = styled.div`
     color: #fff;
     font-size: 20px;
     font-weight: 500;
+  }
+`;
+
+export const Listagem = styled.div`
+  width: 100%;
+  height: 100%;
+  ul {
+    width: 100%;
+    list-style: none;
+  }
+`;
+
+export const Movie = styled.li`
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #fff;
+  p,
+  a,
+  svg {
+    color: #fff;
+    margin: 0 20px;
+    font-size: 14px;
+  }
+  .info {
+    width: 90%;
+  }
+  .action {
+    width: 10%;
   }
 `;

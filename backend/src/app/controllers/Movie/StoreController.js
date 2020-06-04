@@ -50,7 +50,7 @@ class MovieStoreController {
             release_date: Yup.date(),
             tagline: Yup.string(),
             title: Yup.string(),
-            video_key: Yup.string(),
+            video_key: Yup.string()
         });
 
         // caso algum campo nao esteja preenchido ou a senha tenha menos q 6 digitos da erro
@@ -73,47 +73,56 @@ class MovieStoreController {
         }
 
         // Divide a requisição em variaveis para criar as tables
-        let movieJson = req.body;
+        const movieJson = req.body;
         movieJson.id_tmdb = movieJson.id;
         delete movieJson.id;
 
-        let genres = movieJson.genres;
+        const { genres } = movieJson;
         delete movieJson.genres;
 
-        let production_companies = movieJson.production_companies;
+        const { production_companies } = movieJson;
         delete movieJson.production_companies;
 
-        let spoken_languages = movieJson.spoken_languages;
+        const { spoken_languages } = movieJson;
         delete movieJson.spoken_languages;
 
         // Cria o movie table
         const movie = await Movie.create(movieJson);
 
         // Cria os generos do filme
-        for (let index = 0; index < genres.length; index++) {
-            const g = genres[index];
-            const [genrer] = await Genrer.findOrCreate({
-                where: { name: g.name }
-            });
-            await genrer.addMovie(movie.id);
+        if (genres) {
+            for (let index = 0; index < genres.length; index++) {
+                const g = genres[index];
+                const [genrer] = await Genrer.findOrCreate({
+                    where: { name: g.name }
+                });
+                await genrer.addMovie(movie.id);
+            }
         }
 
         // Cria as tables das linguagens do filme
-        for (let index = 0; index < spoken_languages.length; index++) {
-            const spklan = spoken_languages[index];
-            const [slng] = await SpokenLanguage.findOrCreate({
-                where: { name: spklan.name }
-            });
-            await slng.addMovie(movie.id);
+        if (spoken_languages) {
+            for (let index = 0; index < spoken_languages.length; index++) {
+                const spklan = spoken_languages[index];
+                const [slng] = await SpokenLanguage.findOrCreate({
+                    where: { name: spklan.name }
+                });
+                await slng.addMovie(movie.id);
+            }
         }
 
         // Cria as tables das empresas produtoras do filme
-        for (let index = 0; index < production_companies.length; index++) {
-            const pcompany = production_companies[index];
-            const [pcomp] = await ProductionCompany.findOrCreate({
-                where: { name: pcompany.name, logo_path: pcompany.logo_path }
-            });
-            await pcomp.addMovie(movie.id);
+        if (production_companies) {
+            for (let index = 0; index < production_companies.length; index++) {
+                const pcompany = production_companies[index];
+                const [pcomp] = await ProductionCompany.findOrCreate({
+                    where: {
+                        name: pcompany.name,
+                        logo_path: pcompany.logo_path
+                    }
+                });
+                await pcomp.addMovie(movie.id);
+            }
         }
 
         // cria o movie via modelo
@@ -126,10 +135,10 @@ class MovieStoreController {
     }
 
     async favorite(req, res) {
-        const userId = req.userId;
+        const { userId } = req;
         const movieId = req.params.movie_id;
-        var user;
-        var movie;
+        let user;
+        let movie;
 
         try {
             user = await User.findOne({

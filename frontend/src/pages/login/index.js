@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import LogoPanflixBranco from '~/assets/logo/logo-white.png';
 import { signInRequest } from '~/store/modules/auth/actions';
 
+import Input from '~/components/unform/Input';
 import { LoginContainer, FormHolder, FormContent } from './styled';
 
 const schema = Yup.object().shape({

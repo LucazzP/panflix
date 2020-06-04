@@ -5,46 +5,21 @@ export const SidebarHolder = styled.aside`
   left: 0;
   top: 0;
   width: calc(6rem+2px);
+  width: 6rem;
   height: 100vh;
   z-index: 0;
-  &:after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    z-index: -1;
-    filter: blur(10px);
-  }
-  &,
-  &:after {
-    background: linear-gradient(
-      to bottom,
-      rgba(110, 220, 220, 1) 0%,
-      rgba(43, 31, 174, 1) 33%,
-      rgba(255, 20, 30, 1) 66%
-    );
-  }
-`;
-
-export const SidebarContent = styled.aside`
-  position: relative;
-  width: 6rem;
-  height: 100%;
-  background: rgba(110, 220, 220, 1);
+  background: #141e30; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
-    rgba(110, 220, 220, 1) 0%,
-    rgba(43, 31, 174, 1) 10%,
-    rgba(255, 20, 30, 1) 50%
-  );
+    #333,
+    #000
+  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to bottom,
-    rgba(110, 220, 220, 1) 0%,
-    rgba(43, 31, 174, 1) 10%,
-    rgba(255, 20, 30, 1) 50%
-  );
+    #333,
+    #000
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 export const LogoContainer = styled.div`

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const FormColumn = styled.div`
   width: 200px;
   margin: 0 20px;
-  height: 500px;
   &:first-of-type {
     width: 40%;
   }
@@ -76,16 +75,35 @@ export const FormHolder = styled.div`
     label {
       color: #fff;
       font-size: 20px;
-      margin: 0 0 15px;
+      margin: 30px 0 10px;
     }
     input.text {
       width: 100%;
       background: none;
       border-bottom: 2px solid rgba(255, 20, 30, 1);
-      padding: 8px 10px;
+      padding: 10px 10px;
       color: #ccc;
       &::placeholder {
         color: #ccc;
+      }
+    }
+    .select {
+      width: 100%;
+      .react-select__single-value {
+        color: #fff;
+      }
+      .react-select__control {
+        border: 2px solid rgba(255, 20, 30, 1);
+        background: #111;
+        &:hover,
+        &:focus {
+          border: 2px solid rgba(255, 20, 30, 1);
+          background: #111;
+          outline: none;
+        }
+        .react-select__placeholder {
+          color: #fff;
+        }
       }
     }
     textarea {

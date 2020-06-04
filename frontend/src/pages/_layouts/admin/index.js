@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrapper, Container, Bg } from './styles';
+import { Wrapper, Container, Bg } from '../styles';
 import SidebarAdmin from '~/components/default/sidebar/admin';
 // import HeaderAdmin from '~/components/default/header/admin';
 

@@ -14,7 +14,7 @@ import history from '~/services/history';
 import LogoPanflixRetina from '~/assets/logo/logo-retina.png';
 
 // Styled components
-import { SidebarHolder, SidebarContent, LogoContainer, Nav } from './styled';
+import { SidebarHolder, LogoContainer, Nav } from './styled';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -25,27 +25,25 @@ const Sidebar = () => {
 
   return (
     <SidebarHolder className="flex column alignCenter justifyStart">
-      <SidebarContent className="flex column alignCenter justifyStart">
-        <LogoContainer
-          className="flex column alignCenter justifyCenter"
-          id="logo"
-        >
-          <a href="/" id="home">
-            <img src={LogoPanflixRetina} alt="Logo" />
-          </a>
-        </LogoContainer>
-        <Nav className="flex column alignCenter justifyEnd">
-          <a href="/admin" id="return">
-            <FontAwesomeIcon icon={faUserShield} />
-          </a>
-          <button type="button" onClick={history.goBack} id="return">
-            <FontAwesomeIcon icon={faUndoAlt} />
-          </button>
-          <button type="button" onClick={handleSignOut} id="sair">
-            <FontAwesomeIcon icon={faSignOutAlt} />
-          </button>
-        </Nav>
-      </SidebarContent>
+      <LogoContainer
+        className="flex column alignCenter justifyCenter"
+        id="logo"
+      >
+        <a href="/" id="home">
+          <img src={LogoPanflixRetina} alt="Logo" />
+        </a>
+      </LogoContainer>
+      <Nav className="flex column alignCenter justifyEnd">
+        <a href="/admin" id="return">
+          <FontAwesomeIcon icon={faUserShield} />
+        </a>
+        <button type="button" onClick={history.goBack} id="return">
+          <FontAwesomeIcon icon={faUndoAlt} />
+        </button>
+        <button type="button" onClick={handleSignOut} id="sair">
+          <FontAwesomeIcon icon={faSignOutAlt} />
+        </button>
+      </Nav>
     </SidebarHolder>
   );
 };

@@ -1,8 +1,0 @@
-Node - Express - Sequelize
-
-PostgresSQL
-
-HTML5 Boillerplate
-Modernizr
-Normalize
-Jquery

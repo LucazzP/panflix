@@ -19,13 +19,14 @@ export const FormHolder = styled.div`
     z-index: -1;
     filter: blur(50px);
   }
-  &,&:after {
+  &,
+  &:after {
     background: linear-gradient(
-    to bottom,
-    rgba(110, 220, 220, 1) 0%,
-    rgba(43, 31, 174, 1) 33%,
-    rgba(255, 20, 30, 1) 66%
-  );
+      to bottom,
+      rgba(110, 220, 220, 1) 0%,
+      rgba(43, 31, 174, 1) 33%,
+      rgba(255, 20, 30, 1) 66%
+    );
   }
 `;
 
@@ -47,11 +48,13 @@ export const FormContent = styled.div`
       border-radius: 5px;
       border-bottom: 1px solid rgba(255, 20, 30, 1);
       margin: 15px 0;
-      &::placeholder, & {
+      &::placeholder,
+      & {
         color: rgba(255, 20, 30, 1);
         font-size: 16px;
       }
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         box-shadow: 0 0 5px rgba(255, 20, 30, 1);
       }
     }

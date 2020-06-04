@@ -9,14 +9,12 @@ import { MoviePage } from './styled';
 const Browse = () => {
   const { id } = useParams();
   if (id) {
-    console.log(id);
     return (
       <MoviePage className="flex column alignStart justifyTop">
         <Movie identifier={id} />
       </MoviePage>
     );
   }
-  console.log(id);
   return <Redirect to="/browse" />;
 };
 

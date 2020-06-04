@@ -1,11 +1,11 @@
+import https from 'https';
 import Genrer from '../../models/Genrer';
 import Movie from '../../models/Movie';
 import User from '../../models/User';
-import https from 'https';
 
 class MovieGetController {
     async index(req, res) {
-        const permissions = req.permissions;
+        const { permissions } = req;
 
         if (permissions < 1) {
             return res.status(401).json({ error: 'User not authorized' });
@@ -50,8 +50,10 @@ class MovieGetController {
                     response => {
                         response.on('data', function(chunk) {
                             try {
-                                movie.video_key = JSON.parse(chunk).results[0].key;
-                            } catch (e){}
+                                movie.video_key = JSON.parse(
+                                    chunk
+                                ).results[0].key;
+                            } catch (e) {}
                         });
                     }
                 );
@@ -69,6 +71,7 @@ class MovieGetController {
                     required: true,
                     attributes: [
                         'id',
+                        'id_tmdb',
                         'backdrop_path',
                         'poster_path',
                         'title',
@@ -98,6 +101,7 @@ class MovieGetController {
                 ],
                 attributes: [
                     'id',
+                    'id_tmdb',
                     'backdrop_path',
                     'poster_path',
                     'title',
@@ -116,7 +120,7 @@ class MovieGetController {
 
     async favorites(req, res) {
         try {
-            const userId = req.userId;
+            const { userId } = req;
 
             const user = await User.findByPk(userId, {
                 attributes: [],
@@ -126,6 +130,7 @@ class MovieGetController {
                         required: true,
                         attributes: [
                             'id',
+                            'id_tmdb',
                             'backdrop_path',
                             'poster_path',
                             'title',

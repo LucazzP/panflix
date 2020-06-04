@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { toast } from 'react-toastify';
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { MovieContainer, CategoryContainer, Movies } from './styled';
 import MovieComponent from './movie';
@@ -14,6 +16,8 @@ const Browse = () => {
   const [categories, setCategories] = useState([]);
   const [recent, setRecent] = useState([]);
   const [favorites, setFavorites] = useState([]);
+
+  const favoriteContainer = useRef(null);
 
   async function loadMovies() {
     const { data } = await api.get('movies');
@@ -33,6 +37,22 @@ const Browse = () => {
     setFavorites(data);
   }
 
+  function goToMovie(id) {
+    history.push(`/movie/${id}`);
+  }
+
+  async function favoriteItem(id) {
+    const { data } = await api.post(`movies/${id}/favorite`);
+
+    if (data.message.includes('unfavorited')) {
+      toast.success('Filme desfavoritado!');
+    } else if (data.message.includes('favorited')) {
+      toast.success('Filme favoritado!');
+    }
+
+    loadFavorites();
+  }
+
   useEffect(() => {
     loadFavorites();
     recentMovies();
@@ -42,11 +62,22 @@ const Browse = () => {
   const ShowFavorites = () => {
     if (signed && favorites.length > 0) {
       return (
-        <CategoryContainer className="flex column alignStart justifyCenter">
+        <CategoryContainer
+          ref={favoriteContainer}
+          className="flex column alignStart justifyCenter"
+        >
           <h2>Favoritos ></h2>
           <Movies className="flex row alignCenter justifyStart">
             {favorites.map(movie => {
-              return <MovieComponent movie={movie} />;
+              return (
+                <MovieComponent
+                  key={movie.id}
+                  movie={movie}
+                  favorite={favoriteItem}
+                  goToMovie={goToMovie}
+                  id_tmdb={movie.id_tmdb}
+                />
+              );
             })}
           </Movies>
         </CategoryContainer>
@@ -62,7 +93,15 @@ const Browse = () => {
         <h2>Adicionados Recentemente ></h2>
         <Movies className="flex row alignCenter justifyStart">
           {recent.slice(0, 8).map(movie => {
-            return <MovieComponent movie={movie} />;
+            return (
+              <MovieComponent
+                key={movie.id}
+                movie={movie}
+                favorite={favoriteItem}
+                goToMovie={goToMovie}
+                id_tmdb={movie.id_tmdb}
+              />
+            );
           })}
         </Movies>
       </CategoryContainer>
@@ -74,7 +113,15 @@ const Browse = () => {
           <h2>{`${category.name} >`}</h2>
           <Movies className="flex row alignCenter justifyStart">
             {category.movies.slice(0, 8).map(movie => {
-              return <MovieComponent movie={movie} />;
+              return (
+                <MovieComponent
+                  key={movie.id}
+                  movie={movie}
+                  favorite={favoriteItem}
+                  goToMovie={goToMovie}
+                  id_tmdb={movie.id_tmdb}
+                />
+              );
             })}
           </Movies>
         </CategoryContainer>

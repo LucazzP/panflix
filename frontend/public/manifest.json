@@ -1,11 +1,33 @@
 {
   "short_name": "Panflix",
   "name": "Panflix | Netflix Recriation",
-  "icons": [{
-    "src": "icon.png",
+  "icons": [
+    {
+    "src": "%PUBLIC_URL%/favicon/favicon-16x16.png",
     "type": "image/png",
     "sizes": "192x192"
-  }],
+    },
+    {
+      "src": "%PUBLIC_URL%/favicon/favicon-32x32.pngg",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "%PUBLIC_URL%/favicon/favicon-96x96.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "%PUBLIC_URL%/favicon/favicon-128.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "%PUBLIC_URL%/favicon/favicon-196x196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    }
+  ],
   "start_url": "/?utm_source=homescreen",
   "background_color": "#ff141e",
   "theme_color": "#ff141e"

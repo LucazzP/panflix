@@ -83,4 +83,35 @@ export const FormContent = styled.div`
       text-shadow: 0 0 5px rgba(255, 20, 30, 1);
     }
   }
+  .afterForm {
+    height: 100%;
+    padding: 20% 5%;
+    h1,
+    h2 {
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 100px;
+    }
+    h2 {
+      font-weight: 300;
+      line-height: 1.4;
+      font-size: 18px;
+      margin: 0 20%;
+    }
+    button {
+      font-weight: 600;
+      font-size: 18px;
+      margin-top: 50px;
+      color: #fff;
+      background: rgba(255, 20, 30, 1);
+      padding: 10px 30px;
+      border-radius: 30px;
+      &:hover {
+        padding: 10px 60px;
+      }
+    }
+  }
 `;

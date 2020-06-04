@@ -1,12 +1,13 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import { Form, Input, Textarea, FileInput } from '@rocketseat/unform';
+import { Form } from '@unform/web';
+import { toast } from 'react-toastify';
+import api from '~/services/api';
 
-import apiImgur from '~/services/apiImgur';
-import { signInRequest } from '~/store/modules/auth/actions';
-
+import Input from '~/components/unform/Input';
+import Textarea from '~/components/unform/Textarea';
 import { FormHolder, FormColumn } from './styled';
 
 const schema = Yup.object().shape({
@@ -25,45 +26,29 @@ const schema = Yup.object().shape({
 });
 
 const FormContent = () => {
-  const [posterState, setPosterState] = useState(null);
-  const [backdropState, setBackdropState] = useState(null);
-  const posterRef = useRef(null);
-  const backdropRef = useRef(null);
+  const generos = [];
 
-  const dispatch = useDispatch();
-  const loading = useSelector(state => state.auth.loading);
-
-  function posterChange(e) {
-    const data = new FormData();
-
-    data.append('file', e.target.files[0]);
-
-    setPosterState(data);
+  async function handleSubmit(data, { reset }) {
+    const req = api.post('movies', data).then(function(response) {
+      if (response.status === 200) {
+        toast.success('Filme cadastrado com sucesso!');
+        reset();
+      }
+    });
   }
 
-  function backdropChange(e) {
-    const data = new FormData();
+  async function SetGeneros() {
+    const { data } = await api.get('movies');
 
-    data.append('file', e.target.files[0]);
-
-    setBackdropState(data);
+    data.map(genero => {
+      generos.push({ title: genero.name, id: genero.id });
+      return genero;
+    });
   }
 
-  async function handleSubmit({ title, tagline, overview, popularity }) {
-    const poster = {
-      image: posterState,
-      album: '',
-    };
-
-    const backdrop = {
-      image: backdropState,
-      album: '',
-    };
-
-    await apiImgur.post('/upload', poster);
-    await apiImgur.post('/upload', backdrop);
-    dispatch(signInRequest(title, tagline, overview, popularity));
-  }
+  useEffect(() => {
+    SetGeneros();
+  }, []);
 
   return (
     <FormHolder>
@@ -71,12 +56,15 @@ const FormContent = () => {
         schema={schema}
         onSubmit={handleSubmit}
         className="flex column alignCenter justifyStart"
+        initialData={{ techs: 1 }}
       >
         <div
           style={{ width: '100%' }}
           className="columnsContainer flex row alignStart justifyCenter"
         >
           <FormColumn className="flex column alignStart justifySpaceBtn">
+            {/* <label htmlFor="generos">- Gênero:</label>
+            <Select name="genero" placeholder="genêro" options={generos}></Select> */}
             <label htmlFor="titulo">- Título:</label>
             <Input
               name="title"
@@ -113,13 +101,13 @@ const FormContent = () => {
               placeholder="Digite aqui"
             />
           </FormColumn>
-          <FormColumn className="flex column alignStart justifySpaceBtn">
+          {/* <FormColumn className="flex column alignStart justifySpaceBtn">
             <label htmlFor="titulo">- Poster:</label>
             <FileInput
               className="upload"
               name="poster"
               id="poster"
-              onChange={posterChange}
+              // onChange={posterChange}
               accept="image/*"
               ref={posterRef}
             />
@@ -128,13 +116,13 @@ const FormContent = () => {
               className="upload"
               name="backdrop"
               id="backdrop"
-              onChange={backdropChange}
+              // onChange={backdropChange}
               accept="image/*"
               ref={backdropRef}
             />
-          </FormColumn>
+          </FormColumn> */}
         </div>
-        <button type="submit">{loading ? 'Carregando...' : 'Adicionar'}</button>
+        <button type="submit">Adicionar</button>
       </Form>
     </FormHolder>
   );

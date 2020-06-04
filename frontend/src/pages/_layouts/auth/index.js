@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrapper, Container, Bg } from './styles';
+import { Wrapper, Container, Bg } from '../styles';
 import SidebarAuth from '~/components/default/sidebar/logged';
 import Header from '~/components/default/header';
 
