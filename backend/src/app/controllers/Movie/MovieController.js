@@ -1,7 +1,7 @@
-import MovieDeleteController from './DeleteController.js';
-import MovieStoreController from './StoreController.js';
-import MovieUpdateController from './UpdateController.js';
-import MovieGetController from './GetController.js';
+import MovieDeleteController from './DeleteController';
+import MovieStoreController from './StoreController';
+import MovieUpdateController from './UpdateController';
+import MovieGetController from './GetController';
 
 class MovieController {
     async all(req, res) {
@@ -27,6 +27,10 @@ class MovieController {
 
     async orderByCreatedDate(req, res) {
         return MovieGetController.orderByCreatedDate(req, res);
+    }
+
+    async filter(req, res) {
+        return MovieGetController.filter(req, res);
     }
 
     async favorites(req, res) {

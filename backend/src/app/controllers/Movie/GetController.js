@@ -1,11 +1,14 @@
+/* eslint-disable valid-typeof */
+import https from 'https';
+import { Op } from 'sequelize';
+
 import Genrer from '../../models/Genrer';
 import Movie from '../../models/Movie';
 import User from '../../models/User';
-import https from 'https';
 
 class MovieGetController {
     async index(req, res) {
-        const permissions = req.permissions;
+        const { permissions } = req;
 
         if (permissions < 1) {
             return res.status(401).json({ error: 'User not authorized' });
@@ -50,8 +53,10 @@ class MovieGetController {
                     response => {
                         response.on('data', function(chunk) {
                             try {
-                                movie.video_key = JSON.parse(chunk).results[0].key;
-                            } catch (e){}
+                                movie.video_key = JSON.parse(
+                                    chunk
+                                ).results[0].key;
+                            } catch (e) {}
                         });
                     }
                 );
@@ -116,7 +121,7 @@ class MovieGetController {
 
     async favorites(req, res) {
         try {
-            const userId = req.userId;
+            const { userId } = req;
 
             const user = await User.findByPk(userId, {
                 attributes: [],
@@ -144,6 +149,82 @@ class MovieGetController {
             }
 
             return res.json(user.favoriteMovies);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    async filter(req, res) {
+        const findAll = {
+            attributes: ['id', 'name'],
+            include: [
+                {
+                    association: 'movies',
+                    required: true,
+                    attributes: [
+                        'id',
+                        'backdrop_path',
+                        'poster_path',
+                        'title',
+                        'tagline'
+                    ],
+                    order: ['popularity', 'DESC'],
+                    through: {
+                        attributes: []
+                    }
+                }
+            ]
+        };
+
+        if (req.query.gender) {
+            findAll.where = {
+                [Op.or]: [
+                    { name: { [Op.like]: `%${req.query.gender}%` } },
+                    { name: { [Op.like]: `${req.query.gender}%` } },
+                    { name: { [Op.like]: `%${req.query.gender}` } },
+                    { name: { [Op.like]: `${req.query.gender}` } }
+                ]
+            };
+        }
+        if (req.query.title && !req.query.ano) {
+            findAll.include[0].where = {
+                [Op.or]: [
+                    { title: { [Op.like]: `%${req.query.title}%` } },
+                    { title: { [Op.like]: `${req.query.title}%` } },
+                    { title: { [Op.like]: `%${req.query.title}` } },
+                    { title: { [Op.like]: `${req.query.title}` } }
+                ]
+            };
+        }
+        if (req.query.ano && !req.query.title) {
+            findAll.include[0].where = {
+                [Op.or]: [
+                    { ano: { [Op.like]: `%${req.query.ano}%` } },
+                    { ano: { [Op.like]: `${req.query.ano}%` } },
+                    { ano: { [Op.like]: `%${req.query.ano}` } },
+                    { ano: { [Op.like]: `${req.query.ano}` } }
+                ]
+            };
+        }
+        if (req.query.ano && req.query.title) {
+            findAll.include[0].where = {
+                [Op.or]: [
+                    { title: { [Op.like]: `%${req.query.title}%` } },
+                    { title: { [Op.like]: `${req.query.title}%` } },
+                    { title: { [Op.like]: `%${req.query.title}` } },
+                    { title: { [Op.like]: `${req.query.title}` } },
+                    { ano: { [Op.like]: `%${req.query.ano}%` } },
+                    { ano: { [Op.like]: `${req.query.ano}%` } },
+                    { ano: { [Op.like]: `%${req.query.ano}` } },
+                    { ano: { [Op.like]: `${req.query.ano}` } }
+                ]
+            };
+        }
+
+        try {
+            const genders = await Genrer.findAll(findAll);
+
+            return res.json(genders);
         } catch (error) {
             return res.status(500).json(error);
         }

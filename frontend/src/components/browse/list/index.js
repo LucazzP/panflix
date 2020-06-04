@@ -19,8 +19,16 @@ const Browse = () => {
 
   const favoriteContainer = useRef(null);
 
-  async function loadMovies() {
-    const { data } = await api.get('movies');
+  async function loadMovies(gender, title, release_date) {}
+    switch (key) {
+      case value:
+
+        break;
+
+      default:
+        const { data } = await api.get('movies');
+        break;
+    }
 
     setCategories(data);
   }

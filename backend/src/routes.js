@@ -18,6 +18,7 @@ routes.post('/sessions', SessionController.store);
 routes.get('/confirmation/:token', ConfirmationController.update);
 routes.get('/movies', MovieController.all);
 routes.get('/movies/orderByCreatedDate', MovieController.orderByCreatedDate);
+routes.get('/movies/filter', MovieController.filter);
 
 routes.use(AuthMiddleware);
 
