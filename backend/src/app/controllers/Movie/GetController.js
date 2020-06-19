@@ -177,15 +177,15 @@ class MovieGetController {
             ]
         };
 
-        var ano;
-        var anonext;
+        let ano;
+        let anonext;
         if (req.query.ano) {
             ano = new Date(req.query.ano);
             const anoNextNumber = parseInt(req.query.ano) + 1;
             anonext = new Date(anoNextNumber.toString());
         }
-        const title = req.query.title;
-        const gender = req.query.gender;
+        const { title } = req.query;
+        const { gender } = req.query;
 
         if (gender) {
             findAll.where = {

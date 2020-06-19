@@ -6,11 +6,12 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import { MovieContainer, CategoryContainer, Movies } from './styled';
+import Filtro from '../../modal/filtro';
 import MovieComponent from './movie';
 
 import { store } from '~/store';
 
-const Browse = () => {
+const Browse = props => {
   const { signed } = store.getState().auth;
 
   const [categories, setCategories] = useState([]);
@@ -19,7 +20,7 @@ const Browse = () => {
 
   const favoriteContainer = useRef(null);
 
-  async function loadMovies() {
+  async function loadMovies(query) {
     const { data } = await api.get('movies');
 
     setCategories(data);
